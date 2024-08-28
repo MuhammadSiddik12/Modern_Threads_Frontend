@@ -1,0 +1,92 @@
+.product-card {
+	border: 1px solid #ddd; /* Light border around the card */
+	border-radius: 8px; /* Rounded corners */
+	padding: 15px; /* Space inside the card */
+	text-align: center; /* Center-align text inside the card */
+	background-color: #fff; /* White background color */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for a subtle lift effect */
+	transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
+	font-family: "eurostile, sans-serif"; /* Font family for text */
+	width: 100%; /* Full width of the container */
+	max-width: 100%; /* Prevent exceeding container width */
+	margin: 0 auto; /* Center the card horizontally */
+	overflow: hidden; /* Hide overflow content */
+}
+
+.product-card:hover {
+	transform: translateY(-5px); /* Lift card slightly on hover */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+.product-image {
+	width: 100%; /* Full width of the card */
+	height: 600px; /* Fixed height for product image */
+	border-radius: 10px; /* Rounded corners for the image */
+	object-fit: cover; /* Cover the area of the image */
+}
+
+.product-name {
+	font-size: 18px; /* Font size for product name */
+	color: #1c1c1c; /* Dark text color */
+	margin: 12px 0; /* Space above and below the name */
+}
+
+.product-price {
+	font-size: 16px; /* Font size for product price */
+	color: #ff5722; /* Color for price */
+	margin: 10px 0; /* Space above and below the price */
+}
+
+.product-button {
+	background-color: #2874f0; /* Button background color */
+	color: white; /* Text color */
+	border: none; /* Remove default border */
+	padding: 10px 20px; /* Space inside the button */
+	font-size: 16px; /* Font size for button text */
+	cursor: pointer; /* Pointer cursor on hover */
+	border-radius: 5px; /* Rounded corners for button */
+	transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.product-button:hover {
+	background-color: #1c1c1c; /* Darker background color on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+	.product-card {
+		padding: 12px; /* Adjust padding for smaller screens */
+	}
+
+	.product-image {
+		height: 200px; /* Adjust height for smaller screens */
+		width: fit-content; /* Fit content width */
+	}
+}
+
+@media (max-width: 480px) {
+	.product-card {
+		padding: 10px; /* Further reduce padding for mobile screens */
+		width: 100%; /* Ensure card takes full width of its container */
+		max-width: 100%; /* Prevent exceeding container width */
+		margin: 0 auto; /* Center card horizontally */
+	}
+
+	.product-image {
+		height: 300px; /* Adjust height for mobile screens */
+		width: fit-content; /* Fit content width */
+	}
+
+	.product-name {
+		font-size: 16px; /* Slightly smaller font size for mobile */
+	}
+
+	.product-price {
+		font-size: 14px; /* Slightly smaller font size for mobile */
+	}
+
+	.product-button {
+		padding: 8px 16px; /* Adjust padding for mobile */
+		font-size: 14px; /* Adjust font size for mobile */
+	}
+}

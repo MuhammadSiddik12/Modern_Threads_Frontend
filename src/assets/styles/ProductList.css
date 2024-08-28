@@ -1,0 +1,48 @@
+.product-list {
+	display: flex; /* Use flexbox for layout */
+	flex-direction: column; /* Stack items vertically */
+	align-items: center; /* Center align items horizontally */
+	padding: 20px; /* Padding around the list */
+	font-family: "eurostile, sans-serif"; /* Font family for text */
+}
+
+.product-grid {
+	display: grid; /* Use CSS Grid for layout */
+	grid-template-columns: repeat(3, 1fr); /* Create three equal-width columns */
+	gap: 30px; /* Space between grid items */
+	padding: 16px; /* Padding inside the grid */
+	font-family: "eurostile, sans-serif"; /* Font family for text */
+	width: 100%; /* Full width of the container */
+	justify-content: center; /* Center the grid items horizontally */
+}
+
+@media (max-width: 1200px) {
+	.product-grid {
+		grid-template-columns: repeat(
+			3,
+			1fr
+		); /* Maintain three columns for larger tablets and small desktops */
+	}
+}
+
+@media (max-width: 900px) {
+	.product-grid {
+		grid-template-columns: repeat(
+			2,
+			1fr
+		); /* Switch to two columns for tablets */
+	}
+}
+
+@media (max-width: 600px) {
+	.product-grid {
+		grid-template-columns: 1fr; /* Switch to one column for mobile screens */
+	}
+}
+
+@media (max-width: 768px) {
+	.product-list {
+		flex-direction: column; /* Stack items vertically on smaller screens */
+		align-items: center; /* Center align items horizontally */
+	}
+}

@@ -1,0 +1,148 @@
+.footer {
+	background-color: #e1e6e2; /* Background color */
+	color: #1c1c1c; /* Text color */
+	padding: 20px 0; /* Vertical padding */
+	text-align: center; /* Center-align text */
+	margin-top: 20px; /* Space above the footer */
+	font-weight: bold; /* Bold text */
+	font-family: "eurostile, sans-serif"; /* Font family */
+}
+
+.footer-content {
+	display: flex;
+	justify-content: space-around; /* Distribute sections evenly */
+	flex-wrap: wrap; /* Wrap sections on smaller screens */
+	padding: 0 20px; /* Horizontal padding for spacing */
+}
+
+.footer-section {
+	flex: 1 1 200px; /* Responsive flex-basis */
+	padding: 20px; /* Padding inside sections */
+	min-width: 200px; /* Minimum width for sections */
+}
+
+.footer-section h2,
+.footer-section h3 {
+	margin-bottom: 20px; /* Space below headings */
+}
+
+.footer-section p,
+.footer-section ul,
+.footer-section a {
+	color: #1c1c1c; /* Text color */
+	font-size: 14px; /* Font size */
+	line-height: 24px; /* Line height for readability */
+}
+
+.footer-section ul {
+	list-style-type: none; /* Remove list bullets */
+	padding: 0; /* Remove padding */
+}
+
+.footer-section ul li {
+	margin-bottom: 10px; /* Space between list items */
+}
+
+.footer-section ul li a {
+	color: #1c1c1c; /* Link color */
+	text-decoration: none; /* Remove underline */
+}
+
+.footer-section ul li a:hover {
+	color: #515253; /* Hover color for links */
+}
+
+.social-icons {
+	display: flex;
+	gap: 10px; /* Space between icons */
+	justify-content: center; /* Center-align icons */
+}
+
+.social-icons a {
+	color: #1c1c1c; /* Icon color */
+	font-size: 16px; /* Icon size */
+	text-decoration: none; /* Remove underline */
+	display: flex;
+	align-items: center; /* Center icon and text */
+}
+
+.social-icons a i {
+	margin-right: 8px; /* Space between icon and text */
+	font-size: 20px; /* Icon size */
+}
+
+.social-icons a:hover {
+	color: #515253; /* Hover color for icons */
+}
+
+.newsletter-form {
+	display: flex;
+	flex-direction: column; /* Stack input and button */
+	align-items: center; /* Center-align form elements */
+}
+
+.newsletter input {
+	padding: 10px; /* Padding inside input */
+	width: 100%; /* Full width */
+	max-width: 300px; /* Maximum width */
+	border: none; /* Remove border */
+	border-radius: 5px; /* Rounded corners */
+	margin-bottom: 10px; /* Space between input and button */
+}
+
+
+.newsletter button {
+	padding: 10px; /* Padding inside button */
+	background-color: #f90; /* Background color */
+	border: none; /* Remove border */
+	color: #fff; /* Text color */
+	border-radius: 5px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor on hover */
+	width: 100%; /* Full width */
+	max-width: 300px; /* Maximum width */
+}
+
+.footer-bottom {
+	text-align: center; /* Center-align text */
+	margin-top: 20px; /* Space above the footer bottom */
+	border-top: 1px solid #444; /* Top border */
+	padding-top: 10px; /* Space above text */
+	font-size: 12px; /* Font size */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+	.footer-content {
+		padding: 0 10px; /* Adjust horizontal padding */
+	}
+
+	.footer-section {
+		flex: 1 1 100%; /* Full width on smaller screens */
+		padding: 10px; /* Adjust padding */
+		min-width: auto; /* Remove minimum width */
+	}
+
+	.newsletter-form {
+		flex-direction: column; /* Stack input and button */
+	}
+
+	.newsletter input {
+		width: 100%; /* Full width */
+		margin-bottom: 10px; /* Space between input and button */
+	}
+
+	.newsletter button {
+		width: 100%; /* Full width */
+	}
+}
+
+@media (max-width: 480px) {
+	.footer-bottom {
+		font-size: 10px; /* Smaller font size */
+	}
+
+	.footer-content {
+		flex-direction: column; /* Stack sections vertically */
+		align-items: center; /* Center-align sections */
+	}
+}

@@ -1,0 +1,157 @@
+* {
+	box-sizing: border-box; /* Ensure padding and borders are included in the element's width and height */
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 18px 20px;
+	background-color: #e1e6e2;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo {
+	width: 270px;
+	height: auto;
+}
+
+.header-nav {
+	display: flex;
+	gap: 30px;
+}
+
+.header-nav a {
+	color: #1c1c1c;
+	text-decoration: none;
+	font-size: 20px;
+	cursor: pointer;
+	font-weight: bold;
+	transition: color 0.3s ease;
+	font-family: "eurostile, sans-serif";
+}
+
+.header-nav a:hover {
+	color: #515253; /* Update hover color to match theme */
+	transform: translateY(-1px);
+}
+
+.header-search {
+	display: flex;
+	align-items: center;
+	background-color: white;
+	padding: 10px;
+	border-radius: 4px;
+	width: 100%;
+	max-width: 450px;
+}
+
+.header-search input {
+	border: none;
+	padding: 8px;
+	width: 100%;
+	outline: none;
+	font-size: 17px;
+	font-family: "eurostile, sans-serif";
+}
+
+.header-search button {
+	background-color: #f90; /* Updated button color */
+	border: none;
+	padding: 9px 14px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff; /* Ensure button text is readable */
+}
+
+.header-icons {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	font-family: "eurostile, sans-serif";
+	font-size: 17px;
+}
+
+.header-icons img {
+	width: 27px;
+	height: 27px;
+	cursor: pointer;
+}
+
+.header-icons a {
+	color: #1c1c1c;
+	text-decoration: none;
+}
+
+.icon-container {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.icon-container img {
+	width: 27px;
+	height: 27px;
+}
+
+.icon-container a {
+	color: #1c1c1c;
+	text-decoration: none;
+	font-size: 18px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+	.header {
+		flex-direction: column;
+		align-items: center;
+		padding: 18px 10px; /* Reduce padding to prevent overflow */
+	}
+
+	.header-nav {
+		display: none; /* Hide navigation links on small screens */
+	}
+
+	.header-search {
+		width: 100%; /* Make search bar full width on smaller screens */
+		margin-top: 10px;
+	}
+
+	.header-icons {
+		margin-top: 10px;
+		gap: 15px; /* Adjust spacing for smaller screens */
+		justify-content: space-between;
+	}
+}
+
+@media (max-width: 480px) {
+	.header {
+		flex-direction: column;
+		align-items: center;
+		padding: 18px 10px; /* Reduce padding to prevent overflow */
+	}
+
+	.header-search {
+		width: 100%; /* Ensure search bar takes full width */
+		margin-top: 10px;
+	}
+
+	.header-icons {
+		margin-top: 10px;
+		gap: 15px; /* Adjust spacing for smaller screens */
+		justify-content: space-between;
+	}
+}
