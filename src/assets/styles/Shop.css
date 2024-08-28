@@ -1,0 +1,89 @@
+/* Main container styling for the Shop component */
+.Shop {
+	font-family: Arial, sans-serif;
+	text-align: center;
+}
+
+/* Styling for the filters section */
+.filters {
+	margin: 20px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* Styling for filter labels */
+.filters label {
+	margin: 10px 15px;
+	font-size: 18px;
+}
+
+/* Styling for filter select elements */
+.filters select {
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+/* Highlight border on focus for select elements */
+.filters select:focus {
+	border-color: #007bff;
+	outline: none;
+}
+
+/* Styling for pagination controls */
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.pagination li {
+	margin: 0 5px;
+}
+
+.pagination a {
+	text-decoration: none;
+	padding: 5px 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	color: #333;
+	cursor: pointer;
+}
+
+/* Active pagination link styling */
+.pagination .active a {
+	background-color: #ada9a9;
+	font-weight: bold;
+	color: #333;
+}
+
+/* Pagination link hover effect */
+.pagination a:hover {
+	background-color: #444444;
+	border-color: #444444;
+	color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+	.Shop {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media (max-width: 900px) {
+	.Shop {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 600px) {
+	.Shop {
+		grid-template-columns: repeat(1, 1fr);
+		margin-top: 30%;
+	}
+}
