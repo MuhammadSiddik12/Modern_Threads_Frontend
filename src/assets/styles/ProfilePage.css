@@ -1,0 +1,168 @@
+/* Container for profile page with centered layout and styling */
+.profile-container {
+	max-width: 600px; /* Maximum width for the container */
+	margin: 0 auto; /* Center horizontally */
+	padding: 20px;
+	background-color: #f9f9f9; /* Light background color */
+	border-radius: 10px; /* Rounded corners */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+	margin-top: 20px; /* Adjust space above container */
+}
+
+/* Header styling within the profile container */
+.profile-header {
+	text-align: center; /* Center-align header text */
+	margin-bottom: 20px; /* Space below the header */
+}
+
+/* Avatar styling */
+.profile-avatar {
+	width: 120px; /* Avatar width */
+	height: 120px; /* Avatar height */
+	border-radius: 50%; /* Circular shape */
+	margin-bottom: 15px; /* Space below avatar */
+	object-fit: cover; /* Ensure the image covers the avatar area */
+}
+
+/* Header text styling */
+.profile-header h2 {
+	font-size: 24px; /* Font size for header */
+	margin-bottom: 5px; /* Space below the header text */
+}
+
+/* Form container styling for profile form */
+.profile-form {
+	display: flex;
+	flex-direction: column; /* Stack form elements vertically */
+}
+
+/* Label styling inside profile form */
+.profile-form label {
+	display: flex;
+	flex-direction: column; /* Stack label elements vertically */
+	margin-bottom: 15px; /* Space below label */
+}
+
+/* Styling for label text */
+.profile-form span {
+	font-weight: bold; /* Bold text */
+	margin-bottom: 5px; /* Space below the label text */
+}
+
+/* Styling for file input field */
+.profile-form input[type="file"] {
+	border: none; /* Remove border */
+	padding: 5px;
+	font-size: 16px; /* Font size */
+}
+
+/* Styling for text, email, and tel input fields */
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form input[type="tel"] {
+	padding: 10px; /* Padding inside input fields */
+	border: 1px solid #ccc; /* Light border */
+	border-radius: 5px; /* Rounded corners */
+	font-size: 16px; /* Font size */
+}
+
+/* Styling for buttons (edit, save, logout) */
+.edit-button,
+.save-button,
+.logout-button {
+	margin-top: 20px; /* Space above buttons */
+	padding: 10px 20px; /* Button padding */
+	border: none; /* Remove border */
+	border-radius: 5px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor on hover */
+	font-size: 16px; /* Font size */
+	transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+/* Edit button styling */
+.edit-button {
+	background-color: #4caf50; /* Green background */
+	color: white; /* White text */
+}
+
+/* Hover effect for edit button */
+.edit-button:hover {
+	background-color: #45a049; /* Darker green on hover */
+}
+
+/* Save button styling */
+.save-button {
+	background-color: #ff9800; /* Orange background */
+	color: white; /* White text */
+}
+
+/* Hover effect for save button */
+.save-button:hover {
+	background-color: #e68900; /* Darker orange on hover */
+}
+
+/* Logout button styling */
+.logout-button {
+	background-color: #ff4b5c; /* Red background */
+	color: white; /* White text */
+}
+
+/* Hover effect for logout button */
+.logout-button:hover {
+	background-color: #e04352; /* Darker red on hover */
+}
+
+/* Responsive styles for medium screens */
+@media (max-width: 768px) {
+	.profile-container {
+		padding: 15px; /* Reduced padding */
+	}
+
+	.profile-avatar {
+		width: 100px; /* Smaller avatar size */
+		height: 100px;
+	}
+
+	.profile-header h2 {
+		font-size: 20px; /* Smaller header font size */
+	}
+
+	.profile-form input {
+		font-size: 14px; /* Smaller font size for inputs */
+	}
+
+	.edit-button,
+	.save-button,
+	.logout-button {
+		padding: 8px 16px; /* Reduced button padding */
+		font-size: 14px; /* Smaller font size */
+	}
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 480px) {
+	.profile-container {
+		padding: 10px; /* Further reduced padding */
+		margin-top: 25%; /* Adjust space above container */
+	}
+
+	.profile-avatar {
+		width: 80px; /* Smaller avatar size */
+		height: 80px;
+	}
+
+	.profile-header h2 {
+		font-size: 18px; /* Smaller header font size */
+	}
+
+	.profile-form input {
+		font-size: 12px; /* Smaller font size for inputs */
+	}
+
+	.edit-button,
+	.save-button,
+	.logout-button {
+		padding: 6px 12px; /* Further reduced button padding */
+		font-size: 12px; /* Smaller font size */
+	}
+}
