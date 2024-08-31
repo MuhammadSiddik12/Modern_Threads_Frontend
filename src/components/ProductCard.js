@@ -1,9 +1,10 @@
 import React from "react";
 import "../assets/styles/ProductCard.css";
+import { Link } from "react-router-dom";
 
 function ProductCard({ product }) {
 	return (
-		<div className="product-card">
+		<Link to={`/product/productDetails/${product.id}`} className="product-card">
 			<img
 				src={product.image} /* Product image source */
 				alt={product.name} /* Alt text for accessibility */
@@ -17,7 +18,7 @@ function ProductCard({ product }) {
 			{/* Display product price */}
 			<button className="product-button">Add to Cart</button>{" "}
 			{/* Button to add product to cart */}
-		</div>
+		</Link>
 	);
 }
 

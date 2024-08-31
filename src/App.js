@@ -10,6 +10,10 @@ import Signup from "./pages/Signup.js";
 import PrivateRoute from "./services/PrivateRoute";
 import ProfilePage from "./pages/Profile.js";
 import { AuthProvider } from "./services/AuthContext.js";
+import CartPage from "./pages/Cart.js";
+import ProductDetails from "./pages/ProductDetails.js";
+import MyOrders from "./pages/MyOrder.js";
+import OrderDetails from "./pages/OrderDetails.js";
 
 function App() {
 	return (
@@ -28,6 +32,16 @@ function App() {
 								<ProfilePage />
 							</PrivateRoute>
 						}
+					/>
+					<Route path="/cart" element={<CartPage />} />
+					<Route
+						path="/product/productDetails/:productId"
+						element={<ProductDetails />}
+					/>
+					<Route path="/order" element={<MyOrders />} />
+					<Route
+						path="/order/orderDetails/:orderId"
+						element={<OrderDetails />}
 					/>
 				</Routes>
 				<Footer />
