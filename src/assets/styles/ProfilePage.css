@@ -177,7 +177,7 @@
 @media (max-width: 480px) {
 	.profile-container {
 		padding: 10px; /* Further reduced padding */
-		margin-top: 25%; /* Adjust space above container */
+		margin-top: 30%; /* Adjust space above container */
 	}
 
 	.profile-avatar {

@@ -22,6 +22,7 @@
 .auth-form h2 {
 	text-align: center;
 	margin-bottom: 20px; /* Space below header */
+	margin-top: 20px;
 	font-size: 24px;
 }
 
@@ -82,6 +83,6 @@
 @media (max-width: 480px) {
 	.auth-form {
 		padding: 20px; /* Reduced padding */
-		margin-top: 23%; /* Adjust space above container */
+		margin-top: 29%; /* Adjust space above container */
 	}
 }

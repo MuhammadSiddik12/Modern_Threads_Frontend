@@ -32,6 +32,7 @@
 @media (max-width: 768px) {
 	.banner {
 		min-height: 20vh; /* Adjust height for smaller screens */
+		margin-bottom: -30px;
 	}
 
 	.banner-overlay {

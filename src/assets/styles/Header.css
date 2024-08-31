@@ -122,7 +122,7 @@ body {
 	}
 
 	.header-nav {
-		display: none; /* Hide navigation links on small screens */
+		margin-top: 5px;
 	}
 
 	.header-search {

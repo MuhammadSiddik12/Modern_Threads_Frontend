@@ -32,11 +32,19 @@ h2 {
 	text-decoration: none;
 	color: #1c1c1c;
 	font-weight: bold;
-	margin-top: 10px;
+	margin-top: 12px;
 	display: inline-block;
 	transition: color 0.3s ease;
 }
 
 .details-link:hover {
 	color: #333333;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+	.my-orders-page {
+		flex-direction: column;
+		margin-top: 29%;
+	}
 }

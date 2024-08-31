@@ -84,6 +84,6 @@
 @media (max-width: 600px) {
 	.Shop {
 		grid-template-columns: repeat(1, 1fr);
-		margin-top: 30%;
+		margin-top: 33%;
 	}
 }
