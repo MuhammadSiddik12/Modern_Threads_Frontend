@@ -19,7 +19,7 @@ const ProfilePage = () => {
 
 	const profileOptions = [
 		{ name: "My Orders", link: "/orders", icon: "🛒" },
-		{ name: "Edit Profile", link: "/edit-profile", icon: "✏️" },
+		{ name: "Edit Profile", link: "/editProfile", icon: "✏️" },
 	];
 
 	return (

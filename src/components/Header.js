@@ -24,8 +24,7 @@ const Header = () => {
 			<nav className="header-nav">
 				<a href="/">Home</a>
 				<a href="/shop">Shop</a>
-				<a href="/deals">Deals</a>
-				<a href="/contact">Contact Us</a>
+				<a href="/category">Category</a>
 			</nav>
 			{/* Search bar */}
 			<div className="header-search">

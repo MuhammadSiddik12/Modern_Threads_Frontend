@@ -1,0 +1,38 @@
+/* src/assets/styles/EditProfileForm.css */
+
+.edit-profile-page {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.profile-form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.profile-form label {
+	display: flex;
+	flex-direction: column;
+}
+
+.profile-form input {
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+}
+
+.save-button {
+	background-color: #4caf50;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.save-button:hover {
+	background-color: #45a049;
+}

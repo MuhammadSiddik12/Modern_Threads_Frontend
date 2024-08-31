@@ -14,6 +14,8 @@ import CartPage from "./pages/Cart.js";
 import ProductDetails from "./pages/ProductDetails.js";
 import MyOrders from "./pages/MyOrder.js";
 import OrderDetails from "./pages/OrderDetails.js";
+import EditProfile from "./pages/EditProfile.js";
+import Categories from "./components/Categories.js";
 
 function App() {
 	return (
@@ -25,6 +27,7 @@ function App() {
 					<Route path="/shop" element={<Shop />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/signup" element={<Signup />} />
+					<Route path="/category" element={<Categories />} />
 					<Route
 						path="/profile"
 						element={
@@ -33,15 +36,42 @@ function App() {
 							</PrivateRoute>
 						}
 					/>
-					<Route path="/cart" element={<CartPage />} />
 					<Route
 						path="/product/productDetails/:productId"
 						element={<ProductDetails />}
 					/>
-					<Route path="/orders" element={<MyOrders />} />
+
+					<Route
+						path="/cart"
+						element={
+							<PrivateRoute>
+								<CartPage />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/orders"
+						element={
+							<PrivateRoute>
+								<MyOrders />
+							</PrivateRoute>
+						}
+					/>
 					<Route
 						path="/orders/orderDetails/:orderId"
-						element={<OrderDetails />}
+						element={
+							<PrivateRoute>
+								<OrderDetails />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/editProfile"
+						element={
+							<PrivateRoute>
+								<EditProfile />
+							</PrivateRoute>
+						}
 					/>
 				</Routes>
 				<Footer />
