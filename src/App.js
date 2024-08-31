@@ -38,9 +38,9 @@ function App() {
 						path="/product/productDetails/:productId"
 						element={<ProductDetails />}
 					/>
-					<Route path="/order" element={<MyOrders />} />
+					<Route path="/orders" element={<MyOrders />} />
 					<Route
-						path="/order/orderDetails/:orderId"
+						path="/orders/orderDetails/:orderId"
 						element={<OrderDetails />}
 					/>
 				</Routes>

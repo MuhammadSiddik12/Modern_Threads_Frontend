@@ -1,0 +1,42 @@
+.my-orders-page {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+h2 {
+	font-size: 32px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.orders-list {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.order-card {
+	border: 1px solid #ddd;
+	padding: 20px;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+}
+
+.order-card h3 {
+	font-size: 22px;
+	margin-bottom: 10px;
+}
+
+.details-link {
+	text-decoration: none;
+	color: #1c1c1c;
+	font-weight: bold;
+	margin-top: 10px;
+	display: inline-block;
+	transition: color 0.3s ease;
+}
+
+.details-link:hover {
+	color: #333333;
+}
