@@ -112,6 +112,40 @@
 	background-color: #e04352; /* Darker red on hover */
 }
 
+.profile-page {
+	width: 100%;
+	max-width: 600px;
+}
+
+.profile-option {
+	display: flex;
+	align-items: center;
+	padding: 10px 20px;
+	margin: 10px 0;
+	background-color: #fff;
+	border-radius: 6px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s ease;
+	text-decoration: none;
+	color: inherit;
+	width: 100%;
+}
+
+.profile-option:hover {
+	background-color: #f0f0f0;
+}
+
+.profile-option .option-icon {
+	font-size: 24px;
+	margin-right: 15px;
+	color: #555;
+}
+
+.profile-option .option-name {
+	font-size: 18px;
+	color: #333;
+}
+
 /* Responsive styles for medium screens */
 @media (max-width: 768px) {
 	.profile-container {
@@ -153,6 +187,7 @@
 
 	.profile-header h2 {
 		font-size: 18px; /* Smaller header font size */
+		margin-top: 5px; /* Space below the header text */
 	}
 
 	.profile-form input {
