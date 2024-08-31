@@ -34,23 +34,33 @@ const Header = () => {
 			</div>
 			{/* Header icons (cart, profile/login) */}
 			<div className="header-icons">
-				<div className="icon-container">
-					<img src={cart} alt="Cart" />
-					<a className="icon" href="" title="Cart">
-						Cart
-					</a>
-				</div>
+				<Link to="/cart">
+					<div className="icon-container">
+						<img src={cart} alt="Cart" />
+						<a className="icon" href="" title="Cart">
+							Cart
+						</a>
+					</div>
+				</Link>
 				{/* Conditional rendering based on authentication status */}
 				{isAuthenticated ? (
-					<div className="icon-container">
-						<img src={profilePic} alt="Profile" className="profile-icon" />
-						<Link to="/profile">Profile</Link>
-					</div>
+					<Link to="/profile">
+						<div className="icon-container">
+							<img src={profilePic} alt="Profile" className="profile-icon" />
+							<a className="icon" href="" title="Profile">
+								Profile
+							</a>
+						</div>
+					</Link>
 				) : (
-					<div className="icon-container">
-						<img src={userDefault} alt="User Profile" />
-						<Link to="/login">Login</Link>
-					</div>
+					<Link to="/login">
+						<div className="icon-container">
+							<img src={userDefault} alt="User Profile" />
+							<a className="icon" href="" title="Login">
+								Login
+							</a>
+						</div>
+					</Link>
 				)}
 			</div>
 		</header>
