@@ -3,22 +3,37 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../services/authService";
 import "../assets/styles/LoginSignup.css";
 import { AuthContext } from "../services/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { loginUser } from "../services/ApiService";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState(""); // State for storing email input
 	const [password, setPassword] = useState(""); // State for storing password input
+	const [loading, setLoading] = useState(false); // State for loading indicator
 	const navigate = useNavigate(); // Hook for programmatic navigation
-
 	const { login } = useContext(AuthContext); // Get login function from AuthContext
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault(); // Prevent default form submission behavior
 
-		// Simulate login process and set user data
-		const userData = { email, token: "sample-token" };
-		login(userData); // Set user data in context
-		AuthService.login(userData); // Save user data in localStorage
-		navigate("/"); // Redirect to home page after successful login
+		if (email && password) {
+			setLoading(true); // Set loading to true when starting the login process
+			try {
+				const response = await loginUser({ email, password });
+				login(response.data); // Set user data in context
+				AuthService.login(response.data); // Save user data in localStorage
+				toast.success("Login successful!");
+				navigate("/"); // Redirect to home page after successful login
+			} catch (error) {
+				console.log("🚀 ~ handleSubmit ~ error:", error);
+				toast.error(error.response?.data?.message || "Login failed!"); // Improved error handling
+			} finally {
+				setLoading(false); // Reset loading state
+			}
+		} else {
+			toast.error("Please provide valid input"); // Show error toast if validation fails
+		}
 	};
 
 	return (
@@ -43,11 +58,10 @@ const LoginPage = () => {
 						required // Ensure field is filled before submission
 					/>
 				</div>
-				<button type="submit" className="auth-button">
-					Login
+				<button type="submit" className="auth-button" disabled={loading}>
+					{loading ? "Logging in..." : "Login"}
 				</button>
 
-				{/* Link to sign up page if the user does not have an account */}
 				<div className="auth-switch">
 					<span>Don't have an account? </span>
 					<Link to="/signup">Sign up here</Link>
