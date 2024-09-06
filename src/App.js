@@ -16,6 +16,7 @@ import MyOrders from "./pages/MyOrder.js";
 import OrderDetails from "./pages/OrderDetails.js";
 import EditProfile from "./pages/EditProfile.js";
 import Categories from "./components/Categories.js";
+import { ToastContainer } from "react-toastify";
 
 function App() {
 	return (
@@ -75,6 +76,7 @@ function App() {
 					/>
 				</Routes>
 				<Footer />
+				<ToastContainer />
 			</Router>{" "}
 		</AuthProvider>
 	);

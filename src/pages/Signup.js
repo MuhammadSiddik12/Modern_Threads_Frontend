@@ -3,27 +3,45 @@ import "../assets/styles/LoginSignup.css";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../services/authService";
 import { AuthContext } from "../services/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { signupUser } from "../services/ApiService";
 
 const SignupForm = () => {
-	const [name, setName] = useState(""); // State for storing name input
-	const [email, setEmail] = useState(""); // State for storing email input
-	const [password, setPassword] = useState(""); // State for storing password input
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [loading, setLoading] = useState(false); // Added loading state
 
-	const { login } = useContext(AuthContext); // Get login function from AuthContext
-	const navigate = useNavigate(); // Hook for programmatic navigation
+	const { login } = useContext(AuthContext);
+	const navigate = useNavigate();
 
-	const handleSubmit = (e) => {
-		e.preventDefault(); // Prevent default form submission behavior
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 
-		// Basic validation logic
-		if (name && email && password) {
-			// Simulate user data and login process
-			const userData = { name, email, password, token: "sample-token" };
-			login(userData); // Set user data in context
-			AuthService.login(userData); // Save user data in localStorage
-			navigate("/"); // Redirect to home page after successful login
+		if (firstName && lastName && email && password) {
+			setLoading(true); // Set loading to true when starting the signup process
+			try {
+				const response = await signupUser({
+					first_name: firstName,
+					last_name: lastName,
+					email: email,
+					password: password,
+				});
+
+				login(response.data);
+				AuthService.login(response.data);
+				toast.success("Signup successful!");
+				navigate("/");
+			} catch (error) {
+				console.log("🚀 ~ handleSubmit ~ error:", error);
+				toast.error(error.response?.data?.message || "Signup failed!"); // Improved error handling
+			} finally {
+				setLoading(false); // Reset loading state
+			}
 		} else {
-			alert("Please provide valid input"); // Alert if validation fails
+			toast.error("Please provide valid input");
 		}
 	};
 
@@ -32,12 +50,21 @@ const SignupForm = () => {
 			<form className="auth-form" onSubmit={handleSubmit}>
 				<h2>Signup</h2>
 				<div className="form-group">
-					<label>Name</label>
+					<label>First Name</label>
 					<input
 						type="text"
-						value={name}
-						onChange={(e) => setName(e.target.value)} // Update name state on change
-						required // Ensure field is filled before submission
+						value={firstName}
+						onChange={(e) => setFirstName(e.target.value)}
+						required
+					/>
+				</div>
+				<div className="form-group">
+					<label>Last Name</label>
+					<input
+						type="text"
+						value={lastName}
+						onChange={(e) => setLastName(e.target.value)}
+						required
 					/>
 				</div>
 				<div className="form-group">
@@ -45,8 +72,8 @@ const SignupForm = () => {
 					<input
 						type="email"
 						value={email}
-						onChange={(e) => setEmail(e.target.value)} // Update email state on change
-						required // Ensure field is filled before submission
+						onChange={(e) => setEmail(e.target.value)}
+						required
 					/>
 				</div>
 				<div className="form-group">
@@ -54,14 +81,13 @@ const SignupForm = () => {
 					<input
 						type="password"
 						value={password}
-						onChange={(e) => setPassword(e.target.value)} // Update password state on change
-						required // Ensure field is filled before submission
+						onChange={(e) => setPassword(e.target.value)}
+						required
 					/>
 				</div>
-				<button type="submit" className="auth-button">
-					Signup
+				<button type="submit" className="auth-button" disabled={loading}>
+					{loading ? "Signing up..." : "Signup"}
 				</button>
-				{/* Link to login page for users who already have an account */}
 				<div className="auth-switch">
 					<span>Already have an account? </span>
 					<Link to="/login">Login here</Link>
