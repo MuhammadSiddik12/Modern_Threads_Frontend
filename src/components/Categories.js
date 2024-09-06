@@ -1,54 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/styles/Categories.css"; // Import the CSS styles
-
-// Import images for each category
-import jeans from "../assets/images/jeans.png";
-import shorts from "../assets/images/man-shorts.png";
-import menu from "../assets/images/menu.svg";
-import shirt from "../assets/images/shirt.png";
-import tshirt from "../assets/images/t-shirt.png";
-import black from "../assets/images/black-suit.png";
-import blazer from "../assets/images/men-s-blazer.png";
-import belt from "../assets/images/belt.png";
-import watch from "../assets/images/watch.png";
-import shoes from "../assets/images/sports-shoes.png";
-import shoe from "../assets/images/mens-shoe.png";
-import sunglassess from "../assets/images/sunglassess.png";
-
-// Sample data with images for each category
-const categories = [
-	{ name: "All", image: menu },
-	{ name: "T-shirts", image: tshirt },
-	{ name: "Jeans", image: jeans },
-	{ name: "Shorts", image: shorts },
-	{ name: "Shirt", image: shirt },
-	{ name: "Blazers", image: blazer },
-	{ name: "Belts", image: belt },
-	{ name: "Watches", image: watch },
-	{ name: "Sneakers", image: shoes },
-	{ name: "Boots", image: shoe },
-	{ name: "Suits", image: black },
-	{ name: "Sunglasses", image: sunglassess },
-];
+import { getAllCategories, IMAGE_URL } from "../services/ApiService"; // Import the API service
 
 const Categories = () => {
+	const [categories, setCategories] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		const loadCategories = async () => {
+			try {
+				const data = await getAllCategories();
+				setCategories(data.data); // Set the fetched categories
+			} catch (err) {
+				setError("Failed to load categories");
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		loadCategories(); // Fetch categories on component mount
+	}, []); // Empty dependency array means this runs once on mount
+
+	if (loading) return <div>Loading...</div>;
+	if (error) return <div>{error}</div>;
+
 	return (
 		<div className="categories-container">
-			{" "}
 			{/* Container for categories */}
 			<div className="categories">
-				{" "}
 				{/* Flex container for category items */}
 				{categories.map((category, index) => (
 					<div key={index} className="category">
-						{" "}
 						{/* Individual category item */}
 						<img
-							src={category.image}
-							alt={category.name} // Alt text for the image
+							src={
+								category.category_image
+									? `${IMAGE_URL}${category.category_image}`
+									: ""
+							}
+							alt={category.category_name} // Alt text for the image
 							className="category-image" // Styling for the category image
 						/>
-						<span className="category-name">{category.name}</span>{" "}
+						<span className="category-name">{category.category_name}</span>{" "}
 						{/* Category name */}
 					</div>
 				))}

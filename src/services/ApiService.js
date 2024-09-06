@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "https://ignou-project-backend.onrender.com/users";
+const API_URL = "http://localhost:3001/users";
+export const IMAGE_URL = "http://localhost:3001";
 
 export const signupUser = async (data) => {
 	try {
@@ -22,6 +23,15 @@ export const loginUser = async (data) => {
 				"Content-Type": "application/json",
 			},
 		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const getAllCategories = async () => {
+	try {
+		const response = await axios.get(`${API_URL}/category/getAllCategories`);
 		return response.data;
 	} catch (error) {
 		handleError(error);
