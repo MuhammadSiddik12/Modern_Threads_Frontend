@@ -38,6 +38,17 @@ export const getAllCategories = async () => {
 	}
 };
 
+export const getAllProducts = async (page, limit, search) => {
+	try {
+		const response = await axios.get(
+			`${API_URL}/products/getAllProducts?page=${page}&limit=${limit}&search=${search}`
+		);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;
