@@ -6,6 +6,7 @@ const AuthService = {
 
 	logout: () => {
 		localStorage.removeItem("user");
+		localStorage.removeItem("authToken");
 	},
 
 	isAuthenticated: () => {

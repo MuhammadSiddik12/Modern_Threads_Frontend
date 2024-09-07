@@ -68,6 +68,7 @@ const EditProfile = () => {
 			}
 
 			await updateUserDetails({ ...formDataUser });
+			updateUser();
 			toast.success("Profile updated successfully!");
 			navigate("/profile");
 		} catch (error) {
