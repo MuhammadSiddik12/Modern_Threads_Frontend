@@ -45,7 +45,7 @@ function ProductList() {
 			{/* Display the first set of products in a grid */}
 			<div className="product-grid">
 				{products.map((product) => (
-					<ProductCard key={product.id} product={product} />
+					<ProductCard key={product.product_id} product={product} />
 				))}
 			</div>
 
@@ -56,7 +56,7 @@ function ProductList() {
 			<div className="product-grid">
 				{products2.map((product) =>
 					product.product_images.length ? (
-						<ProductCard key={product.id} product={product} />
+						<ProductCard key={product.product_id} product={product} />
 					) : (
 						""
 					)

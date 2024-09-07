@@ -1,37 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/styles/ProductDetails.css";
+import {
+	addToCart,
+	getProductDetailsById,
+	IMAGE_URL,
+} from "../services/ApiService";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetails = () => {
-	// Sample product data
-	const product = {
-		id: 1,
-		name: "Wireless Earbuds",
-		description:
-			"These wireless earbuds provide high-quality sound and a comfortable fit. Perfect for on-the-go listening with a long-lasting battery.",
-		price: 2999,
-		images: [
-			"https://www.gonoise.com/cdn/shop/files/3_copy_e16721a2-098d-49ff-a72f-580f05a928cb.webp?v=1720443494",
-			"https://www.gonoise.com/cdn/shop/files/5_copy_81ee3c14-ce3a-4379-bb68-8485d61b91f2.webp?v=1720443495",
-		],
+	const { productId } = useParams();
+
+	const [product, setProduct] = useState(null); // State to store product details
+	const [selectedImage, setSelectedImage] = useState(""); // State to store selected image
+	const [loading, setLoading] = useState(true);
+	const [buttonText, setButtonText] = useState("Add to Cart"); // State to manage button text
+	const [isButtonDisabled, setIsButtonDisabled] = useState(false); // State to manage button disabled status
+
+	useEffect(() => {
+		const getProductDetails = async () => {
+			try {
+				const response = await getProductDetailsById(productId);
+				setLoading(false);
+				setProduct(response.data);
+				if (response.data.is_added) {
+					setButtonText("Added to Cart");
+					setIsButtonDisabled(true);
+				}
+				setSelectedImage(response.data.product_images[0]);
+			} catch (error) {
+				console.error("Error fetching product details:", error);
+				toast.error(error);
+			}
+		};
+
+		getProductDetails();
+	}, []);
+
+	const handleAddToCart = async () => {
+		try {
+			const response = await addToCart({
+				product_id: productId,
+				quantity: 1,
+			});
+			console.log(`Added ${product.product_name} to cart`, response.data);
+			toast.success(`Added to cart`);
+			setButtonText("Added to Cart");
+			setIsButtonDisabled(true);
+		} catch (error) {
+			toast.error(error);
+			console.error("Error adding product to cart:", error);
+		}
 	};
 
-	const [selectedImage, setSelectedImage] = useState(product.images[0]);
-	console.log("🚀 ~ ProductDetails ~ selectedImage:", selectedImage);
-
-	const handleAddToCart = () => {
-		// Logic to add product to cart
-		console.log(`Added ${product.name} to cart`);
-	};
+	if (loading || !product) {
+		return <div>Loading product details...</div>; // Show loading state while fetching data
+	}
 
 	return (
 		<div className="product-details-page">
 			<div className="product-images">
-				<img src={selectedImage} alt={product.name} className="main-image" />
+				<img
+					src={`${IMAGE_URL}${selectedImage}`}
+					alt={product.product_name}
+					className="main-image"
+				/>
 				<div className="thumbnail-images">
-					{product.images.map((image, index) => (
+					{product.product_images.map((image, index) => (
 						<img
 							key={index}
-							src={image}
+							src={`${IMAGE_URL}${image}`}
 							alt={`Thumbnail ${index}`}
 							className={`thumbnail ${selectedImage === image ? "active" : ""}`}
 							onClick={() => setSelectedImage(image)}
@@ -43,8 +82,13 @@ const ProductDetails = () => {
 				<h2>{product.name}</h2>
 				<p className="product-description">{product.description}</p>
 				<p className="product-price">Price: ₹{product.price}</p>
-				<button className="add-to-cart-button" onClick={handleAddToCart}>
-					Add to Cart
+				<button
+					className="add-to-cart-button"
+					id="addtocart"
+					onClick={handleAddToCart}
+					disabled={isButtonDisabled}
+				>
+					{buttonText}{" "}
 				</button>
 			</div>
 		</div>

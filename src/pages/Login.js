@@ -23,6 +23,7 @@ const LoginPage = () => {
 				const response = await loginUser({ email, password });
 				login(response.data); // Set user data in context
 				AuthService.login(response.data); // Save user data in localStorage
+				localStorage.setItem("authToken", response.token);
 				toast.success("Login successful!");
 				navigate("/"); // Redirect to home page after successful login
 			} catch (error) {
