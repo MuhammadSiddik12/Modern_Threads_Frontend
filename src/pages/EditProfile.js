@@ -1,15 +1,31 @@
-import React, { useState } from "react";
-import AuthService from "../services/authService";
+import React, { useState, useEffect } from "react";
+import { getUserDetails, updateUserDetails } from "../services/ApiService";
 import "../assets/styles/EditProfile.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditProfile = () => {
-	const user = AuthService.getUser(); // Example user data
-
-	const [profilePic, setProfilePic] = useState(user?.profilePic || "");
-	const [userInfo, setUserInfo] = useState(user);
-
+	const [profilePic, setProfilePic] = useState("");
+	const [userInfo, setUserInfo] = useState({});
 	const navigate = useNavigate();
+	const [buttonText, setButtonText] = useState("Save Changes");
+	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const user = await getUserDetails();
+				setUserInfo(user.data);
+				setProfilePic(user.data.profile_pic || "");
+			} catch (error) {
+				console.error("Error fetching user details:", error);
+				navigate("/login");
+			}
+		};
+
+		fetchUser();
+	}, [navigate]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -28,11 +44,14 @@ const EditProfile = () => {
 
 	const handleSave = async () => {
 		try {
-			AuthService.updateUser({ ...userInfo, profilePic });
+			setButtonText("Saving Changes...");
+			setIsButtonDisabled(true);
+			await updateUserDetails({ ...userInfo, profile_pic: profilePic });
+			toast.success("Profile updated successfully!");
 			navigate("/profile");
 		} catch (error) {
-			console.error("Error sdfsdfsds profile:", error);
-			navigate("/login");
+			console.error("Error updating profile:", error);
+			toast.error(error);
 		}
 	};
 
@@ -53,8 +72,17 @@ const EditProfile = () => {
 					<span>Full Name:</span>
 					<input
 						type="text"
-						name="name"
-						value={userInfo.name || ""}
+						name="first_name"
+						value={userInfo.first_name || ""}
+						onChange={handleChange}
+					/>
+				</label>
+				<label>
+					<span>Last Name:</span>
+					<input
+						type="text"
+						name="last_name"
+						value={userInfo.last_name || ""}
 						onChange={handleChange}
 					/>
 				</label>
@@ -70,27 +98,19 @@ const EditProfile = () => {
 				<label>
 					<span>Phone:</span>
 					<input
-						type="tel"
-						name="phone"
-						value={userInfo.phone || ""}
+						type="text"
+						name="phone_number"
+						value={userInfo.phone_number || ""}
 						onChange={handleChange}
+						maxLength="10"
 					/>
 				</label>
 				<label>
-					<span>Address Line 1:</span>
+					<span>Street Address:</span>
 					<input
 						type="text"
-						name="addressLine1"
-						value={userInfo.addressLine1 || ""}
-						onChange={handleChange}
-					/>
-				</label>
-				<label>
-					<span>Address Line 2:</span>
-					<input
-						type="text"
-						name="addressLine2"
-						value={userInfo.addressLine2 || ""}
+						name="street"
+						value={userInfo.street || ""}
 						onChange={handleChange}
 					/>
 				</label>
@@ -125,14 +145,19 @@ const EditProfile = () => {
 					<span>ZIP Code:</span>
 					<input
 						type="text"
-						name="zipCode"
-						value={userInfo.zipCode || ""}
+						name="zip_code"
+						value={userInfo.zip_code || ""}
 						onChange={handleChange}
 					/>
 				</label>
 
-				<button className="save-button" type="button" onClick={handleSave}>
-					Save Changes
+				<button
+					className="save-button"
+					type="button"
+					disabled={isButtonDisabled}
+					onClick={handleSave}
+				>
+					{buttonText}
 				</button>
 			</form>
 		</div>

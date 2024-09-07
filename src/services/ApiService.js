@@ -116,6 +116,37 @@ export const checkoutCart = () => {
 	return axios.post("/api/cart/checkout");
 };
 
+export const getUserDetails = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(`${API_URL}/getUserDetails`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const updateUserDetails = async (data) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.put(`${API_URL}/editUserProfile`, data, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;
