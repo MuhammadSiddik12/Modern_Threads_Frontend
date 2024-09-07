@@ -7,6 +7,8 @@ import {
 	checkoutCart,
 	IMAGE_URL,
 } from "../services/ApiService"; // Import your API service
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CartPage = () => {
 	const [cartItems, setCartItems] = useState([]);
@@ -20,6 +22,7 @@ const CartPage = () => {
 				const response = await getCartItems(); // Fetch cart items from the API
 				setCartItems(response.data);
 			} catch (err) {
+				toast.error(err);
 				setError("Failed to fetch cart items.");
 			} finally {
 				setLoading(false);
@@ -43,8 +46,10 @@ const CartPage = () => {
 			setCartItems((prevItems) =>
 				prevItems.filter((item) => item.cart_id !== id)
 			);
+			toast.success("Item remove successfully!");
 		} catch (err) {
 			console.log("🚀 ~ handleRemoveItem ~ err:", err);
+			toast.error(err);
 			setError("Failed to remove item.");
 		}
 	};
@@ -56,6 +61,7 @@ const CartPage = () => {
 			console.log("Proceeding to checkout");
 			// Redirect or show a success message
 		} catch (err) {
+			toast.error(err);
 			setError("Checkout failed.");
 		}
 	};
