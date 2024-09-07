@@ -1,59 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/styles/Cart.css";
 import { Link } from "react-router-dom";
+import {
+	getCartItems,
+	removeCartItem,
+	checkoutCart,
+	IMAGE_URL,
+} from "../services/ApiService"; // Import your API service
 
 const CartPage = () => {
-	// Sample cart data
-	const cartItems = [
-		{
-			id: 1,
-			name: "Wireless Earbuds",
-			price: 2999,
-			quantity: 2,
-			imageUrl:
-				"https://www.gonoise.com/cdn/shop/files/3_copy_e16721a2-098d-49ff-a72f-580f05a928cb.webp?v=1720443494",
-		},
-		{
-			id: 2,
-			name: "Smartphone",
-			price: 19999,
-			quantity: 1,
-			imageUrl:
-				"https://oasis.opstatics.com/content/dam/oasis/page/2023/in/oneplus-10t/specs/10r-blue.png",
-		},
-		{
-			id: 3,
-			name: "Laptop",
-			price: 49999,
-			quantity: 1,
-			imageUrl:
-				"https://static-ecapac.acer.com/media/catalog/product/1/_/1_75_nx.ks7si.001.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=500&width=500&canvas=500:500",
-		},
-		{
-			id: 1,
-			name: "Wireless Earbuds",
-			price: 2999,
-			quantity: 2,
-			imageUrl:
-				"https://www.gonoise.com/cdn/shop/files/3_copy_e16721a2-098d-49ff-a72f-580f05a928cb.webp?v=1720443494",
-		},
-		{
-			id: 2,
-			name: "Smartphone",
-			price: 19999,
-			quantity: 1,
-			imageUrl:
-				"https://oasis.opstatics.com/content/dam/oasis/page/2023/in/oneplus-10t/specs/10r-blue.png",
-		},
-		{
-			id: 3,
-			name: "Laptop",
-			price: 49999,
-			quantity: 1,
-			imageUrl:
-				"https://static-ecapac.acer.com/media/catalog/product/1/_/1_75_nx.ks7si.001.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=500&width=500&canvas=500:500",
-		},
-	];
+	const [cartItems, setCartItems] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	// Fetch cart items from API on component mount
+	useEffect(() => {
+		const fetchCartItems = async () => {
+			try {
+				const response = await getCartItems(); // Fetch cart items from the API
+				setCartItems(response.data);
+			} catch (err) {
+				setError("Failed to fetch cart items.");
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchCartItems();
+	}, []);
 
 	const getTotalPrice = () => {
 		return cartItems.reduce(
@@ -62,60 +36,95 @@ const CartPage = () => {
 		);
 	};
 
-	const handleRemoveItem = (id) => {
-		// Logic to remove item from cart
-		console.log(`Removing item with id: ${id}`);
+	// Handle removing an item from the cart
+	const handleRemoveItem = async (id) => {
+		try {
+			await removeCartItem(id); // API call to remove item
+			setCartItems((prevItems) =>
+				prevItems.filter((item) => item.cart_id !== id)
+			);
+		} catch (err) {
+			console.log("🚀 ~ handleRemoveItem ~ err:", err);
+			setError("Failed to remove item.");
+		}
 	};
 
-	const handleCheckout = () => {
-		// Logic to proceed to checkout
-		console.log("Proceeding to checkout");
+	// Handle checkout process
+	const handleCheckout = async () => {
+		try {
+			await checkoutCart(); // API call for checkout
+			console.log("Proceeding to checkout");
+			// Redirect or show a success message
+		} catch (err) {
+			setError("Checkout failed.");
+		}
 	};
+
+	if (loading) {
+		return (
+			<div>
+				<h2>Loading...</h2>
+			</div>
+		);
+	}
+
+	if (error) {
+		return <div>Error: {error}</div>;
+	}
 
 	return (
 		<div className="cart-page">
 			<h2>Your Cart</h2>
-			<div className="cart-content">
-				<div className="cart-items">
-					{cartItems.map((item) => (
-						<div key={item.id} className="cart-item">
-							<Link
-								to={`/product/productDetails/${item.id}`}
-								className="cart-item-link"
-							>
-								<img
-									src={item.imageUrl}
-									alt={item.name}
-									className="cart-item-image"
-								/>
-							</Link>
-							<div className="cart-item-details">
+			{cartItems.length === 0 ? (
+				<div className="empty-cart">
+					<p>Your cart is empty</p>
+					<Link to="/shop" className="continue-shopping-button">
+						Continue Shopping
+					</Link>
+				</div>
+			) : (
+				<div className="cart-content">
+					<div className="cart-items">
+						{cartItems.map((item) => (
+							<div key={item.cart_id} className="cart-item">
 								<Link
-									to={`/product/productDetails/${item.id}`}
+									to={`/product/productDetails/${item.product_id}`}
 									className="cart-item-link"
 								>
-									<h3>{item.name}</h3>
-									<p>Price: ₹{item.price}</p>
-									<p>Quantity: {item.quantity}</p>
+									<img
+										src={`${IMAGE_URL}${item.product_details.product_images[0]}`}
+										alt={item.name}
+										className="cart-item-image"
+									/>
 								</Link>
-								<button
-									className="remove-button"
-									onClick={() => handleRemoveItem(item.id)}
-								>
-									Remove
-								</button>
+								<div className="cart-item-details">
+									<Link
+										to={`/product/productDetails/${item.product_id}`}
+										className="cart-item-link"
+									>
+										<h3>{item.product_details.product_name}</h3>
+										<p>Price: ₹{item.price}</p>
+										<p>Quantity: {item.quantity}</p>
+									</Link>
+									<button
+										className="remove-button"
+										onClick={() => handleRemoveItem(item.cart_id)}
+									>
+										Remove
+									</button>
+								</div>
 							</div>
-						</div>
-					))}
+						))}
+					</div>
+					<div className="cart-summary">
+						<h3>Order Summary</h3>
+						<p>Total Price: ₹{getTotalPrice()}</p>
+						<button className="checkout-button" onClick={handleCheckout}>
+							Proceed to Checkout
+						</button>
+					</div>
 				</div>
-				<div className="cart-summary">
-					<h3>Order Summary</h3>
-					<p>Total Price: ₹{getTotalPrice()}</p>
-					<button className="checkout-button" onClick={handleCheckout}>
-						Proceed to Checkout
-					</button>
-				</div>
-			</div>
+			)}
 		</div>
 	);
 };

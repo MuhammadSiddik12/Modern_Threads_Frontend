@@ -87,6 +87,35 @@ export const addToCart = async (data) => {
 	}
 };
 
+export const getCartItems = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(`${API_URL}/cart/getAllCartItems`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const removeCartItem = (id) => {
+	const token = localStorage.getItem("authToken");
+
+	return axios.delete(`${API_URL}/cart/removeItem?cart_id=${id}`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+};
+
+export const checkoutCart = () => {
+	return axios.post("/api/cart/checkout");
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;
