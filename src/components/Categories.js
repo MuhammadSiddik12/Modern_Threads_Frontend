@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../assets/styles/Categories.css"; // Import the CSS styles
 import { getAllCategories, IMAGE_URL } from "../services/ApiService"; // Import the API service
-
+import menu from "../assets/images/menu.svg";
 const Categories = () => {
 	const [categories, setCategories] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -11,6 +11,7 @@ const Categories = () => {
 		const loadCategories = async () => {
 			try {
 				const data = await getAllCategories();
+				data.data.unshift({ category_name: "All", category_image: menu });
 				setCategories(data.data); // Set the fetched categories
 			} catch (err) {
 				setError("Failed to load categories");
@@ -35,9 +36,11 @@ const Categories = () => {
 						{/* Individual category item */}
 						<img
 							src={
-								category.category_image
-									? `${IMAGE_URL}${category.category_image}`
-									: ""
+								index != 0
+									? category.category_image
+										? `${IMAGE_URL}${category.category_image}`
+										: ""
+									: category.category_image
 							}
 							alt={category.category_name} // Alt text for the image
 							className="category-image" // Styling for the category image
