@@ -7,8 +7,11 @@ import {
 	getAllProducts,
 	getAllProductsByCategory,
 } from "../services/ApiService";
+import { useParams } from "react-router-dom";
 
 function Shop() {
+	const { categoryId } = useParams();
+
 	const [products, setProducts] = useState([]);
 	const [category, setCategory] = useState("All");
 	const [categories, setCategories] = useState([]);
@@ -17,37 +20,52 @@ function Shop() {
 	const [totalCount, setTotalCount] = useState(0);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const itemsPerPage = 9;
 
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				const data = await getAllCategories();
-				data.data.unshift({ category_name: "All" });
-				setCategories(data.data);
+				const categoriesData = await getAllCategories();
+				setCategories([
+					{ category_name: "All", category_id: "All" },
+					...categoriesData.data,
+				]);
 
-				if (category != "All") {
-					const data = await getAllProductsByCategory(
-						category,
+				let productsData;
+				if (categoryId && categoryId !== "All") {
+					productsData = await getAllProductsByCategory(
+						categoryId,
 						currentPage + 1,
-						9,
+						itemsPerPage,
 						""
 					);
-					setProducts(data.data);
-					setTotalCount(data.total_count);
+				} else if (category !== "All") {
+					productsData = await getAllProductsByCategory(
+						category,
+						currentPage + 1,
+						itemsPerPage,
+						""
+					);
 				} else {
-					const data = await getAllProducts(currentPage + 1, 9, "");
-					setProducts(data.data);
-					setTotalCount(data.total_count);
+					productsData = await getAllProducts(
+						currentPage + 1,
+						itemsPerPage,
+						""
+					);
 				}
+
+				setProducts(productsData.data);
+				setTotalCount(productsData.total_count);
 			} catch (error) {
 				setError(error.message);
 			} finally {
 				setLoading(false);
 			}
 		};
+
 		setLoading(true);
 		fetchProducts();
-	}, [currentPage, category]);
+	}, [currentPage, category, categoryId]);
 
 	// Handle category change
 	const handleCategoryChange = (e) => {
@@ -61,7 +79,7 @@ function Shop() {
 		setCurrentPage(0);
 	};
 
-	const sortedProducts = products.sort((a, b) => {
+	const sortedProducts = [...products].sort((a, b) => {
 		if (sort === "asc") return a.price - b.price;
 		if (sort === "desc") return b.price - a.price;
 		return 0;
@@ -107,8 +125,15 @@ function Shop() {
 					</select>
 				</label>
 			</div>
+			{!products.length ? (
+				<div>
+					<h3>No product found</h3>
+				</div>
+			) : (
+				""
+			)}
 			<div className="product-grid">
-				{products.map((product) => (
+				{sortedProducts.map((product) => (
 					<ProductCard key={product.product_id} product={product} />
 				))}
 			</div>
