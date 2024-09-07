@@ -23,7 +23,12 @@ const Categories = () => {
 		loadCategories(); // Fetch categories on component mount
 	}, []); // Empty dependency array means this runs once on mount
 
-	if (loading) return <div>Loading...</div>;
+	if (loading)
+		return (
+			<div>
+				<h2>Loading...</h2>
+			</div>
+		);
 	if (error) return <div>{error}</div>;
 
 	return (

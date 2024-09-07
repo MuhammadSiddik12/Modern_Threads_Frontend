@@ -55,7 +55,11 @@ const ProductDetails = () => {
 	};
 
 	if (loading || !product) {
-		return <div>Loading product details...</div>; // Show loading state while fetching data
+		return (
+			<div>
+				<h2>Loading product details...</h2>
+			</div>
+		);
 	}
 
 	return (
