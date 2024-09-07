@@ -57,6 +57,10 @@
 	background-color: #333333; /* Darker background color on hover */
 }
 
+.edit-link {
+	text-decoration: none;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
 	.product-card {
