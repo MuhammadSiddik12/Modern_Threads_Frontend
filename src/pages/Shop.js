@@ -7,10 +7,11 @@ import {
 	getAllProducts,
 	getAllProductsByCategory,
 } from "../services/ApiService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Shop() {
 	const { categoryId } = useParams();
+	const navigate = useNavigate();
 
 	const [products, setProducts] = useState([]);
 	const [category, setCategory] = useState("All");
@@ -23,13 +24,23 @@ function Shop() {
 	const itemsPerPage = 9;
 
 	useEffect(() => {
-		const fetchProducts = async () => {
+		const fetchCategoriesAndProducts = async () => {
 			try {
 				const categoriesData = await getAllCategories();
-				setCategories([
+				const allCategories = [
 					{ category_name: "All", category_id: "All" },
 					...categoriesData.data,
-				]);
+				];
+				setCategories(allCategories);
+
+				if (categoryId) {
+					const selectedCategory = allCategories.find(
+						(cat) => cat.category_id === categoryId
+					);
+					if (selectedCategory) {
+						setCategory(selectedCategory.category_name);
+					}
+				}
 
 				let productsData;
 				if (categoryId && categoryId !== "All") {
@@ -40,12 +51,17 @@ function Shop() {
 						""
 					);
 				} else if (category !== "All") {
-					productsData = await getAllProductsByCategory(
-						category,
-						currentPage + 1,
-						itemsPerPage,
-						""
+					const selectedCategory = allCategories.find(
+						(cat) => cat.category_name === category
 					);
+					if (selectedCategory) {
+						productsData = await getAllProductsByCategory(
+							selectedCategory.category_id,
+							currentPage + 1,
+							itemsPerPage,
+							""
+						);
+					}
 				} else {
 					productsData = await getAllProducts(
 						currentPage + 1,
@@ -64,12 +80,21 @@ function Shop() {
 		};
 
 		setLoading(true);
-		fetchProducts();
+		fetchCategoriesAndProducts();
 	}, [currentPage, category, categoryId]);
 
 	// Handle category change
 	const handleCategoryChange = (e) => {
-		setCategory(e.target.value);
+		const selectedCategoryId = e.target.value;
+
+		const selectedCategory = categories.find(
+			(cat) => cat.category_id === selectedCategoryId
+		);
+
+		if (selectedCategory) {
+			setCategory(selectedCategory.category_name);
+			navigate(`/shopbycategory/${selectedCategoryId}`);
+		}
 		setCurrentPage(0);
 	};
 
@@ -108,7 +133,13 @@ function Shop() {
 			<div className="filters">
 				<label>
 					Category:
-					<select value={category} onChange={handleCategoryChange}>
+					<select
+						value={
+							categories.find((cat) => cat.category_name === category)
+								?.category_id
+						}
+						onChange={handleCategoryChange}
+					>
 						{categories.map((cat) => (
 							<option key={cat.category_id} value={cat.category_id}>
 								{cat.category_name}
