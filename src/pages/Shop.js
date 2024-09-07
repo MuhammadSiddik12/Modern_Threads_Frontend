@@ -2,20 +2,16 @@ import React, { useState, useEffect } from "react";
 import "../assets/styles/Shop.css";
 import ReactPaginate from "react-paginate";
 import ProductCard from "../components/ProductCard";
-import { getAllProducts } from "../services/ApiService";
-
-const categories = [
-	"All",
-	"Electronics",
-	"Books",
-	"Clothing",
-	"Footwear",
-	"Accessories",
-];
+import {
+	getAllCategories,
+	getAllProducts,
+	getAllProductsByCategory,
+} from "../services/ApiService";
 
 function Shop() {
 	const [products, setProducts] = useState([]);
 	const [category, setCategory] = useState("All");
+	const [categories, setCategories] = useState([]);
 	const [sort, setSort] = useState("none");
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalCount, setTotalCount] = useState(0);
@@ -25,16 +21,31 @@ function Shop() {
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				const data = await getAllProducts(currentPage + 1, 9, "");
-				setProducts(data.data);
-				setTotalCount(data.total_count);
+				const data = await getAllCategories();
+				data.data.unshift({ category_name: "All" });
+				setCategories(data.data);
+
+				if (category != "All") {
+					const data = await getAllProductsByCategory(
+						category,
+						currentPage + 1,
+						9,
+						""
+					);
+					setProducts(data.data);
+					setTotalCount(data.total_count);
+				} else {
+					const data = await getAllProducts(currentPage + 1, 9, "");
+					setProducts(data.data);
+					setTotalCount(data.total_count);
+				}
 			} catch (error) {
 				setError(error.message);
 			} finally {
 				setLoading(false);
 			}
 		};
-
+		setLoading(true);
 		fetchProducts();
 	}, [currentPage, category]);
 
@@ -81,8 +92,8 @@ function Shop() {
 					Category:
 					<select value={category} onChange={handleCategoryChange}>
 						{categories.map((cat) => (
-							<option key={cat} value={cat}>
-								{cat}
+							<option key={cat.category_id} value={cat.category_id}>
+								{cat.category_name}
 							</option>
 						))}
 					</select>
