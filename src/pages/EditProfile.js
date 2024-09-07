@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getUserDetails, updateUserDetails } from "../services/ApiService";
+import {
+	getUserDetails,
+	updateUserDetails,
+	uploadImage,
+} from "../services/ApiService";
 import "../assets/styles/EditProfile.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,6 +15,7 @@ const EditProfile = () => {
 	const navigate = useNavigate();
 	const [buttonText, setButtonText] = useState("Save Changes");
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -18,6 +23,7 @@ const EditProfile = () => {
 				const user = await getUserDetails();
 				setUserInfo(user.data);
 				setProfilePic(user.data.profile_pic || "");
+				setLoading(false);
 			} catch (error) {
 				console.error("Error fetching user details:", error);
 				navigate("/login");
@@ -46,14 +52,38 @@ const EditProfile = () => {
 		try {
 			setButtonText("Saving Changes...");
 			setIsButtonDisabled(true);
-			await updateUserDetails({ ...userInfo, profile_pic: profilePic });
+
+			const formDataUser = {
+				...userInfo,
+			};
+
+			let imageUrl = null;
+			if (profilePic) {
+				const formDataImage = new FormData();
+				formDataImage.append("image", profilePic);
+
+				const imageResponse = await uploadImage(formDataImage);
+				imageUrl = imageResponse.filePath;
+				formDataUser.profile_pic = imageUrl;
+			}
+
+			await updateUserDetails({ ...formDataUser });
 			toast.success("Profile updated successfully!");
 			navigate("/profile");
 		} catch (error) {
+			setButtonText("Save Changes");
+			setIsButtonDisabled(false);
 			console.error("Error updating profile:", error);
 			toast.error(error);
 		}
 	};
+
+	if (loading)
+		return (
+			<div>
+				<h2>Loading...</h2>
+			</div>
+		);
 
 	return (
 		<div className="edit-profile-page">

@@ -1,16 +1,33 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../services/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import AuthService from "../services/authService";
 import "../assets/styles/ProfilePage.css";
 import userDefault from "../assets/images/user.png";
+import { getUserDetails, IMAGE_URL } from "../services/ApiService";
 
 const ProfilePage = () => {
 	const { logout } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const user = AuthService.getUser();
+	const [userInfo, setUserInfo] = useState({});
+	const [profilePic, setProfilePic] = useState("");
+	const [loading, setLoading] = useState(true);
 
-	const [profilePic] = useState(user?.profilePic || userDefault);
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const user = await getUserDetails();
+				console.log("🚀 ~ fetchUser ~ user:", user);
+				setUserInfo(user.data);
+				setProfilePic(user.data.profile_pic || userDefault);
+				setLoading(false);
+			} catch (error) {
+				console.error("Error fetching user details:", error);
+				navigate("/login");
+			}
+		};
+
+		fetchUser();
+	}, [navigate]);
 
 	const handleLogout = () => {
 		logout();
@@ -19,14 +36,28 @@ const ProfilePage = () => {
 
 	const profileOptions = [
 		{ name: "My Orders", link: "/orders", icon: "🛒" },
+		{ name: "My Transactions", link: "/transactions", icon: "💲" },
 		{ name: "Edit Profile", link: "/editProfile", icon: "✏️" },
 	];
+
+	if (loading)
+		return (
+			<div>
+				<h2>Loading...</h2>
+			</div>
+		);
 
 	return (
 		<div className="profile-container">
 			<div className="profile-header">
-				<img src={profilePic} alt="User Avatar" className="profile-avatar" />
-				<h2>{user?.name || "John Doe"}</h2>
+				<img
+					src={`${IMAGE_URL}${profilePic}`}
+					alt="User Avatar"
+					className="profile-avatar"
+				/>
+				<h2>
+					{userInfo?.first_name + " " + userInfo?.last_name || "John Doe"}
+				</h2>
 
 				<div className="profile-page">
 					{profileOptions.map((option, index) => (

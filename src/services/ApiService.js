@@ -147,6 +147,23 @@ export const updateUserDetails = async (data) => {
 	}
 };
 
+export const uploadImage = async (formData) => {
+	try {
+		const response = await axios.post(
+			`${IMAGE_URL}/uploadImage`,
+			formData,
+			{
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;
