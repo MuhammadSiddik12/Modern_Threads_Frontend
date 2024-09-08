@@ -7,6 +7,7 @@ import {
 	checkoutCart,
 	IMAGE_URL,
 	getUserDetails,
+	createPaymentCheckout,
 } from "../services/ApiService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +16,9 @@ const CartPage = () => {
 	const [cartItems, setCartItems] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [buttonText, setButtonText] = useState("Proceed to Checkout");
+	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+	const [orderId, setOrderId] = useState(null);
 
 	// Fetch cart items from API on component mount
 	useEffect(() => {
@@ -22,6 +26,11 @@ const CartPage = () => {
 			try {
 				const response = await getCartItems(); // Fetch cart items from the API
 				setCartItems(response.data);
+				
+				if (response.order_details.length) {
+					setOrderId(response.order_details[0].order_id);
+					setButtonText("Proceed to Payment");
+				}
 			} catch (err) {
 				toast.error(err.message || "Failed to fetch cart items.");
 				setError("Failed to fetch cart items.");
@@ -56,30 +65,45 @@ const CartPage = () => {
 
 	// Handle checkout process
 	const handleCheckout = async () => {
-		const orderItems = cartItems.map((item) => item.cart_id);
-		const user = await getUserDetails();
-		const data = user.data;
-		const shippingAddress = {
-			street: data.street,
-			city: data.city,
-			state: data.state,
-			postal_code: data.zip_code,
-			country: data.country,
-		};
-		const billingAddress = {
-			street: data.street,
-			city: data.city,
-			state: data.state,
-			postal_code: data.zip_code,
-			country: data.country,
-		};
+		setIsButtonDisabled(true);
 
-		try {
-			await checkoutCart(orderItems, shippingAddress, billingAddress);
-			toast.success("Checkout successful!");
-		} catch (err) {
-			toast.error(err || "Checkout failed.");
+		if (buttonText == "Proceed to Checkout") {
+			const orderItems = cartItems.map((item) => item.cart_id);
+			const user = await getUserDetails();
+			const data = user.data;
+			const shippingAddress = {
+				street: data.street,
+				city: data.city,
+				state: data.state,
+				postal_code: data.zip_code,
+				country: data.country,
+			};
+			const billingAddress = {
+				street: data.street,
+				city: data.city,
+				state: data.state,
+				postal_code: data.zip_code,
+				country: data.country,
+			};
+
+			try {
+				await checkoutCart(orderItems, shippingAddress, billingAddress);
+				toast.success("Checkout successful!");
+			} catch (err) {
+				toast.error(err || "Checkout failed.");
+			}
+		} else {
+			try {
+				const payment = await createPaymentCheckout(orderId);
+				console.log("🚀 ~ handleCheckout ~ payment:", payment);
+				toast.success("Payment link created successful!");
+				window.location.href = payment.data;
+			} catch (err) {
+				toast.error(err || "Checkout failed.");
+			}
 		}
+
+		setIsButtonDisabled(false);
 	};
 
 	if (loading) {
@@ -128,12 +152,16 @@ const CartPage = () => {
 										<p>Price: ₹{item.price}</p>
 										<p>Quantity: {item.quantity}</p>
 									</Link>
-									<button
-										className="remove-button"
-										onClick={() => handleRemoveItem(item.cart_id)}
-									>
-										Remove
-									</button>
+									{buttonText != "Proceed to Payment" ? (
+										<button
+											className="remove-button"
+											onClick={() => handleRemoveItem(item.cart_id)}
+										>
+											Remove
+										</button>
+									) : (
+										""
+									)}
 								</div>
 							</div>
 						))}
@@ -141,9 +169,23 @@ const CartPage = () => {
 					<div className="cart-summary">
 						<h3>Order Summary</h3>
 						<p>Total Price: ₹{getTotalPrice()}</p>
-						<button className="checkout-button" onClick={handleCheckout}>
-							Proceed to Checkout
+						<button
+							className="checkout-button"
+							onClick={handleCheckout}
+							disabled={isButtonDisabled}
+						>
+							{buttonText}
 						</button>
+						{buttonText == "Proceed to Payment" ? (
+							<button
+								className="cancel-checkout-button"
+								onClick={() => handleRemoveItem(item.cart_id)}
+							>
+								Cancel Order
+							</button>
+						) : (
+							""
+						)}
 					</div>
 				</div>
 			)}

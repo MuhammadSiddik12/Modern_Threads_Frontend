@@ -185,6 +185,29 @@ export const checkoutCart = async (
 	}
 };
 
+export const createPaymentCheckout = async (order_id) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.post(
+			`${API_URL}/payments/createPaymentCheckout`,
+			{
+				order_id: order_id,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`, // Ensure token is stored in localStorage
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.log("🚀 ~ error:", error);
+		throw error.response.data.message || "Checkout failed.";
+	}
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;
