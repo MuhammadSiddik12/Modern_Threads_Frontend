@@ -39,6 +39,8 @@ const ProductDetails = () => {
 	}, []);
 
 	const handleAddToCart = async () => {
+		setButtonText("Adding to Cart...");
+		setIsButtonDisabled(true);
 		try {
 			const response = await addToCart({
 				product_id: productId,
@@ -49,6 +51,8 @@ const ProductDetails = () => {
 			setButtonText("Added to Cart");
 			setIsButtonDisabled(true);
 		} catch (error) {
+			setButtonText("Add to Cart");
+			setIsButtonDisabled(false);
 			toast.error(error);
 			console.error("Error adding product to cart:", error);
 		}
