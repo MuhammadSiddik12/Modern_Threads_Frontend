@@ -256,6 +256,39 @@ export const cancelOrder = (id) => {
 	});
 };
 
+// Payments
+export const getAllPayments = async (page, limit) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(`${API_URL}/payments/getAllPayments`, {
+			params: { page, limit },
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const getPaymentById = async (paymentId) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(`${API_URL}/payments/getPaymentDetails`, {
+			params: { payment_id: paymentId },
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;

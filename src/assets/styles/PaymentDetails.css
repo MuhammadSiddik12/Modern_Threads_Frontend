@@ -1,0 +1,60 @@
+/* PaymentDetailsPage.css */
+
+.PaymentDetails {
+	padding: 30px;
+}
+
+h1 {
+	font-size: 2rem;
+	margin-bottom: 20px;
+}
+
+.transaction-details {
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 8px;
+	background-color: #f9f9f9;
+}
+
+.PaymentDetails p {
+	margin: 10px 0;
+	font-size: 1rem;
+}
+
+.PaymentDetails h2 {
+	margin-top: 20px;
+	font-size: 1.5rem;
+}
+
+.PaymentDetails ul {
+	list-style: none;
+	padding: 0;
+}
+
+.PaymentDetails li {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+	font-size: 1rem;
+}
+
+.loading,
+.error {
+	font-size: 1.5rem;
+	color: #201e1e; /* Red color for errors */
+	text-align: center;
+	margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+	h1 {
+		font-size: 1.5rem;
+	}
+
+	.transaction-details {
+		padding: 10px;
+	}
+
+	li {
+		padding: 5px 0;
+	}
+}

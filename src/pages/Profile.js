@@ -36,7 +36,7 @@ const ProfilePage = () => {
 
 	const profileOptions = [
 		{ name: "My Orders", link: "/orders", icon: "🛒" },
-		{ name: "My Transactions", link: "/transactions", icon: "💲" },
+		{ name: "My Transactions", link: "/payments", icon: "💲" },
 		{ name: "Edit Profile", link: "/editProfile", icon: "✏️" },
 	];
 

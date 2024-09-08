@@ -17,6 +17,8 @@ import OrderDetails from "./pages/OrderDetails.js";
 import EditProfile from "./pages/EditProfile.js";
 import Categories from "./components/Categories.js";
 import { ToastContainer } from "react-toastify";
+import Payment from "./pages/Payments.js";
+import PaymentDetails from "./pages/PaymentDetails.js";
 
 function App() {
 	return (
@@ -72,6 +74,23 @@ function App() {
 						element={
 							<PrivateRoute>
 								<EditProfile />
+							</PrivateRoute>
+						}
+					/>
+
+					<Route
+						path="/payments"
+						element={
+							<PrivateRoute>
+								<Payment />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/payments/:transactionId"
+						element={
+							<PrivateRoute>
+								<PaymentDetails />
 							</PrivateRoute>
 						}
 					/>

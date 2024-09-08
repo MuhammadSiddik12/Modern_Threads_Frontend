@@ -1,0 +1,51 @@
+/* Payment.css */
+
+.Payment {
+	padding: 40px;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.Payment h1 {
+	font-size: 2rem;
+	margin-bottom: 20px;
+}
+
+.Payment ul {
+	list-style: none;
+	padding: 0;
+}
+
+.Payment li {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+}
+
+.Payment a {
+	text-decoration: none;
+	color: #007bff;
+}
+
+.Payment a:hover {
+	text-decoration: underline;
+}
+
+.loading,
+.error {
+	font-size: 1.5rem;
+	color: #111010; /* Red color for errors */
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+@media (max-width: 600px) {
+	.Payment h1 {
+		margin-top: 40%;
+		font-size: 1.5rem;
+	}
+
+	.Payment li {
+		padding: 5px 0;
+	}
+}
