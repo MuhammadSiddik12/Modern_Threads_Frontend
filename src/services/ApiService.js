@@ -246,6 +246,16 @@ export const getOrderDetailsById = async (order_id) => {
 	}
 };
 
+export const cancelOrder = (id) => {
+	const token = localStorage.getItem("authToken");
+
+	return axios.delete(`${API_URL}/cart/order/cancelOrderById?order_id=${id}`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;

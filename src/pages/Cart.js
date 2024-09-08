@@ -8,6 +8,7 @@ import {
 	IMAGE_URL,
 	getUserDetails,
 	createPaymentCheckout,
+	cancelOrder,
 } from "../services/ApiService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,6 +20,7 @@ const CartPage = () => {
 	const [buttonText, setButtonText] = useState("Proceed to Checkout");
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 	const [orderId, setOrderId] = useState(null);
+	const [cancelButtonText, setCancelButtonText] = useState("Cancel Order");
 
 	// Fetch cart items from API on component mount
 	useEffect(() => {
@@ -60,6 +62,20 @@ const CartPage = () => {
 		} catch (err) {
 			toast.error(err.message || "Failed to remove item.");
 			setError("Failed to remove item.");
+		}
+	};
+
+	const handleCancelOrder = async (orderId) => {
+		setCancelButtonText("Canceling order");
+		try {
+			await cancelOrder(orderId); // API call to remove item
+			toast.success("Order cancel successfully!");
+			setTimeout(() => {
+				window.location.reload();
+			}, 1200);
+		} catch (err) {
+			toast.error(err.message || "Failed to cancel order.");
+			// setError("Failed to cancel item.");
 		}
 	};
 
@@ -153,7 +169,7 @@ const CartPage = () => {
 										<p>Price: ₹{item.price}</p>
 										<p>Quantity: {item.quantity}</p>
 									</Link>
-									{buttonText != "Proceed to Payment" ||
+									{buttonText != "Proceed to Payment" &&
 									buttonText != "Processing payment..." ? (
 										<button
 											className="remove-button"
@@ -181,9 +197,10 @@ const CartPage = () => {
 						{buttonText == "Proceed to Payment" ? (
 							<button
 								className="cancel-checkout-button"
-								onClick={() => handleRemoveItem(item.cart_id)}
+								onClick={() => handleCancelOrder(orderId)}
+								disabled={isButtonDisabled}
 							>
-								Cancel Order
+								{cancelButtonText}
 							</button>
 						) : (
 							""
