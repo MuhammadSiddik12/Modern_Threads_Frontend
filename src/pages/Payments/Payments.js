@@ -23,7 +23,13 @@ const Payment = () => {
 		fetchPayments();
 	}, []);
 
-	if (loading) return <div className="loading">Loading...</div>;
+	if (loading)
+		return (
+			<div>
+				<h2>Loading...</h2>
+			</div>
+		);
+
 	if (error) return <div className="error">Error: {error}</div>;
 
 	return (

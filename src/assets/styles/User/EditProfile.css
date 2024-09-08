@@ -41,6 +41,6 @@
 @media (max-width: 768px) {
 	.edit-profile-page {
 		flex-direction: column;
-		margin-top: 30%;
+		/* margin-top: 30%; */
 	}
 }

@@ -87,7 +87,6 @@
 	}
 
 	.category {
-		width: 80%; /* Width of categories on smaller screens */
 		margin: 10px 0; /* Space between categories */
 		padding: 10px; /* Padding inside category */
 	}

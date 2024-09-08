@@ -26,7 +26,7 @@ const OrderDetails = () => {
 
 	return (
 		<div className="order-details-page">
-			<h2>OrderId: #{orderId} Details</h2>
+			<h2>OrderId: #{orderId}</h2>
 			{isLoading ? (
 				<h3>Loading order details...</h3>
 			) : order ? (
