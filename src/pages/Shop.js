@@ -7,14 +7,16 @@ import {
 	getAllProducts,
 	getAllProductsByCategory,
 } from "../services/ApiService";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function Shop() {
 	const { categoryId } = useParams();
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const [products, setProducts] = useState([]);
 	const [category, setCategory] = useState("All");
+	const [search, setSearch] = useState("");
 	const [categories, setCategories] = useState([]);
 	const [sort, setSort] = useState("none");
 	const [currentPage, setCurrentPage] = useState(0);
@@ -26,6 +28,14 @@ function Shop() {
 	useEffect(() => {
 		const fetchCategoriesAndProducts = async () => {
 			try {
+				let user_id = "";
+				const user = localStorage.getItem("user");
+
+				if (user) {
+					const data = JSON.parse(user);
+					user_id = data ? data.user_id : "";
+				}
+
 				const categoriesData = await getAllCategories();
 				const allCategories = [
 					{ category_name: "All", category_id: "All" },
@@ -43,12 +53,23 @@ function Shop() {
 				}
 
 				let productsData;
-				if (categoryId && categoryId !== "All") {
+				if (location.state?.searchResults) {
+					// Use search results from header
+					productsData = {
+						data: location.state.searchResults,
+						total_count: location.state.total_count,
+					};
+					console.log(
+						"🚀 ~ fetchCategoriesAndProducts ~ productsData:",
+						productsData
+					);
+					setSearch(location.state.searchQuery);
+				} else if (categoryId && categoryId !== "All") {
 					productsData = await getAllProductsByCategory(
 						categoryId,
 						currentPage + 1,
 						itemsPerPage,
-						""
+						search
 					);
 				} else if (category !== "All") {
 					const selectedCategory = allCategories.find(
@@ -59,14 +80,15 @@ function Shop() {
 							selectedCategory.category_id,
 							currentPage + 1,
 							itemsPerPage,
-							""
+							search
 						);
 					}
 				} else {
 					productsData = await getAllProducts(
 						currentPage + 1,
 						itemsPerPage,
-						""
+						search,
+						user_id
 					);
 				}
 
@@ -81,7 +103,7 @@ function Shop() {
 
 		setLoading(true);
 		fetchCategoriesAndProducts();
-	}, [currentPage, category, categoryId]);
+	}, [currentPage, category, categoryId, location.state?.searchResults]);
 
 	// Handle category change
 	const handleCategoryChange = (e) => {
@@ -156,18 +178,17 @@ function Shop() {
 					</select>
 				</label>
 			</div>
-			{!products.length ? (
+			{products.length === 0 ? (
 				<div>
 					<h3>No product found</h3>
 				</div>
 			) : (
-				""
+				<div className="product-grid">
+					{sortedProducts.map((product) => (
+						<ProductCard key={product.product_id} product={product} />
+					))}
+				</div>
 			)}
-			<div className="product-grid">
-				{sortedProducts.map((product) => (
-					<ProductCard key={product.product_id} product={product} />
-				))}
-			</div>
 			<ReactPaginate
 				pageCount={totalCount}
 				onPageChange={handlePageChange}
