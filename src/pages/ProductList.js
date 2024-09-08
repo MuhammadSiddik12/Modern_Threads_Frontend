@@ -17,11 +17,20 @@ function ProductList() {
 	useEffect(() => {
 		const loadCategories = async () => {
 			try {
-				const data = await getAllProducts(1, 12, "");
-				const data2 = await getAllProducts(2, 12, "");
+				let user_id = "";
+				const user = localStorage.getItem("user");
+
+				if (user) {
+					console.log("🚀 ~ loadCategories ~ user:", user);
+					const data = JSON.parse(user);
+					user_id = data ? data.user_id : "";
+				}
+				const data = await getAllProducts(1, 12, "", user_id);
+				const data2 = await getAllProducts(2, 12, "", user_id);
 				setProduct(data.data); // Set the fetched categories
 				setProduct2(data2.data);
 			} catch (err) {
+				console.log("🚀 ~ loadCategories ~ err:", err);
 				setError("Failed to load products");
 			} finally {
 				setLoading(false);

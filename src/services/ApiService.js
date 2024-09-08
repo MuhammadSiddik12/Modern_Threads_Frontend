@@ -38,10 +38,10 @@ export const getAllCategories = async () => {
 	}
 };
 
-export const getAllProducts = async (page, limit, search) => {
+export const getAllProducts = async (page, limit, search, user_id) => {
 	try {
 		const response = await axios.get(
-			`${API_URL}/products/getAllProducts?page=${page}&limit=${limit}&search=${search}`
+			`${API_URL}/products/getAllProducts?page=${page}&limit=${limit}&search=${search}&user_id=${user_id}`
 		);
 		return response.data;
 	} catch (error) {
@@ -81,8 +81,13 @@ export const addToCart = async (data) => {
 				Authorization: `Bearer ${token}`,
 			},
 		});
+
 		return response.data;
 	} catch (error) {
+		if (error.status == 401) {
+			handleError({ message: "Please log in to add product to your cart." });
+		}
+
 		handleError(error);
 	}
 };
