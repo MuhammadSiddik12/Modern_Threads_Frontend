@@ -112,10 +112,6 @@ export const removeCartItem = (id) => {
 	});
 };
 
-export const checkoutCart = () => {
-	return axios.post("/api/cart/checkout");
-};
-
 export const getUserDetails = async () => {
 	try {
 		const token = localStorage.getItem("authToken");
@@ -149,18 +145,43 @@ export const updateUserDetails = async (data) => {
 
 export const uploadImage = async (formData) => {
 	try {
+		const response = await axios.post(`${IMAGE_URL}/uploadImage`, formData, {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const checkoutCart = async (
+	orderItems,
+	shippingAddress,
+	billingAddress
+) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
 		const response = await axios.post(
-			`${IMAGE_URL}/uploadImage`,
-			formData,
+			`${API_URL}/cart/order/createOrder`,
+			{
+				order_items: orderItems,
+				shipping_address: shippingAddress,
+				billing_address: billingAddress,
+			},
 			{
 				headers: {
-					"Content-Type": "multipart/form-data",
+					Authorization: `Bearer ${token}`, // Ensure token is stored in localStorage
+					"Content-Type": "application/json",
 				},
 			}
 		);
 		return response.data;
 	} catch (error) {
-		handleError(error);
+		console.log("🚀 ~ error:", error);
+		throw error.response.data.message || "Checkout failed.";
 	}
 };
 

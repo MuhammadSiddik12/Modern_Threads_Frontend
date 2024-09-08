@@ -6,7 +6,8 @@ import {
 	removeCartItem,
 	checkoutCart,
 	IMAGE_URL,
-} from "../services/ApiService"; // Import your API service
+	getUserDetails,
+} from "../services/ApiService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,7 +23,7 @@ const CartPage = () => {
 				const response = await getCartItems(); // Fetch cart items from the API
 				setCartItems(response.data);
 			} catch (err) {
-				toast.error(err);
+				toast.error(err.message || "Failed to fetch cart items.");
 				setError("Failed to fetch cart items.");
 			} finally {
 				setLoading(false);
@@ -46,23 +47,38 @@ const CartPage = () => {
 			setCartItems((prevItems) =>
 				prevItems.filter((item) => item.cart_id !== id)
 			);
-			toast.success("Item remove successfully!");
+			toast.success("Item removed successfully!");
 		} catch (err) {
-			console.log("🚀 ~ handleRemoveItem ~ err:", err);
-			toast.error(err);
+			toast.error(err.message || "Failed to remove item.");
 			setError("Failed to remove item.");
 		}
 	};
 
 	// Handle checkout process
 	const handleCheckout = async () => {
+		const orderItems = cartItems.map((item) => item.cart_id);
+		const user = await getUserDetails();
+		const data = user.data;
+		const shippingAddress = {
+			street: data.street,
+			city: data.city,
+			state: data.state,
+			postal_code: data.zip_code,
+			country: data.country,
+		};
+		const billingAddress = {
+			street: data.street,
+			city: data.city,
+			state: data.state,
+			postal_code: data.zip_code,
+			country: data.country,
+		};
+
 		try {
-			await checkoutCart(); // API call for checkout
-			console.log("Proceeding to checkout");
-			// Redirect or show a success message
+			await checkoutCart(orderItems, shippingAddress, billingAddress);
+			toast.success("Checkout successful!");
 		} catch (err) {
-			toast.error(err);
-			setError("Checkout failed.");
+			toast.error(err || "Checkout failed.");
 		}
 	};
 
