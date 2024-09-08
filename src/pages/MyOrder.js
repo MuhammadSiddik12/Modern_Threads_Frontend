@@ -36,7 +36,7 @@ const MyOrders = () => {
 							<p>Total: ₹{order.total_price}</p>
 							<p>Status: {order.order_status}</p>
 							<Link
-								to={`/orders/orderDetails/${order.id}`}
+								to={`/orders/orderDetails/${order.order_id}`}
 								className="details-link"
 							>
 								View Details

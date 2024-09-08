@@ -1,56 +1,66 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import "../assets/styles/OrderDetails.css";
+import { getOrderDetailsById, IMAGE_URL } from "../services/ApiService";
 
 const OrderDetails = () => {
 	const { orderId } = useParams();
+	const [order, setOrder] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
-	// Sample order details data
-	const order = {
-		id: orderId,
-		date: "2024-08-29",
-		total: 24999,
-		status: "Delivered",
-		items: [
-			{
-				id: 1,
-				name: "Wireless Earbuds",
-				price: 2999,
-				quantity: 2,
-				imageUrl:
-					"https://www.gonoise.com/cdn/shop/files/3_copy_e16721a2-098d-49ff-a72f-580f05a928cb.webp?v=1720443494",
-			},
-			{
-				id: 2,
-				name: "Smartphone",
-				price: 19999,
-				quantity: 1,
-				imageUrl:
-					"https://oasis.opstatics.com/content/dam/oasis/page/2023/in/oneplus-10t/specs/10r-blue.png",
-			},
-		],
-	};
+	useEffect(() => {
+		const fetchOrderDetails = async () => {
+			setIsLoading(true);
+			try {
+				const response = await getOrderDetailsById(orderId);
+
+				setOrder(response.data);
+			} catch (error) {
+				console.error("Error fetching order details:", error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+		fetchOrderDetails();
+	}, [orderId]); // Re-fetch on orderId change
 
 	return (
 		<div className="order-details-page">
-			<h2>Order #{order.id} Details</h2>
-			<p>Date: {order.date}</p>
-			<p>Total: ₹{order.total}</p>
-			<p>Status: {order.status}</p>
+			<h2>OrderId: #{orderId} Details</h2>
+			{isLoading ? (
+				<h3>Loading order details...</h3>
+			) : order ? (
+				<>
+					<p>Date: {new Date(order.created_at).toLocaleString()}</p>
+					<p>Total: ₹{order.total_price}</p>
+					<p>Status: {order.order_status}</p>
 
-			<h3>Items in this Order:</h3>
-			<div className="order-items">
-				{order.items.map((item) => (
-					<div key={item.id} className="order-item">
-						<img src={item.imageUrl} alt={item.name} className="item-image" />
-						<div className="item-details">
-							<h4>{item.name}</h4>
-							<p>Price: ₹{item.price}</p>
-							<p>Quantity: {item.quantity}</p>
-						</div>
+					<h3>Items in this Order:</h3>
+					<div className="order-items">
+						{order.cart_items.map((item) => (
+							<div key={item.id} className="order-item">
+								<Link
+									to={`/product/productDetails/${item.product_details.product_id}`}
+									className="edit-link"
+								>
+									<img
+										src={`${IMAGE_URL}${item.product_details.product_images[0]}`}
+										alt={item.product_details.product_name}
+										className="item-image"
+									/>
+								</Link>
+								<div className="item-details">
+									<h4>{item.name}</h4>
+									<p>Price: ₹{item.price}</p>
+									<p>Quantity: {item.quantity}</p>
+								</div>
+							</div>
+						))}
 					</div>
-				))}
-			</div>
+				</>
+			) : (
+				<p>Order details not found.</p>
+			)}
 		</div>
 	);
 };

@@ -223,6 +223,24 @@ export const getAllMyOrders = async () => {
 	}
 };
 
+export const getOrderDetailsById = async (order_id) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(
+			`${API_URL}/cart/order/getOrderDetailsById?order_id=${order_id}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;
