@@ -122,6 +122,11 @@ h2 {
 	color: #333;
 }
 
+.empty-cart-container {
+	text-align: center;
+	font-size: 18px;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
 	.cart-content {

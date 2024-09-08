@@ -26,7 +26,7 @@ const CartPage = () => {
 			try {
 				const response = await getCartItems(); // Fetch cart items from the API
 				setCartItems(response.data);
-				
+
 				if (response.order_details.length) {
 					setOrderId(response.order_details[0].order_id);
 					setButtonText("Proceed to Payment");
@@ -66,8 +66,8 @@ const CartPage = () => {
 	// Handle checkout process
 	const handleCheckout = async () => {
 		setIsButtonDisabled(true);
-
 		if (buttonText == "Proceed to Checkout") {
+			setButtonText("Processing...");
 			const orderItems = cartItems.map((item) => item.cart_id);
 			const user = await getUserDetails();
 			const data = user.data;
@@ -88,21 +88,22 @@ const CartPage = () => {
 
 			try {
 				await checkoutCart(orderItems, shippingAddress, billingAddress);
-				toast.success("Checkout successful!");
+				toast.success("Order created successful!");
+				window.location.reload();
 			} catch (err) {
-				toast.error(err || "Checkout failed.");
+				toast.error(err || "Order creation failed.");
 			}
 		} else {
+			setButtonText("Processing payment...");
 			try {
 				const payment = await createPaymentCheckout(orderId);
 				console.log("🚀 ~ handleCheckout ~ payment:", payment);
 				toast.success("Payment link created successful!");
 				window.location.href = payment.data;
 			} catch (err) {
-				toast.error(err || "Checkout failed.");
+				toast.error(err || "Checkout payment failed.");
 			}
 		}
-
 		setIsButtonDisabled(false);
 	};
 
@@ -122,9 +123,9 @@ const CartPage = () => {
 		<div className="cart-page">
 			<h2>Your Cart</h2>
 			{cartItems.length === 0 ? (
-				<div className="empty-cart">
-					<p>Your cart is empty</p>
-					<Link to="/shop" className="continue-shopping-button">
+				<div className="empty-cart-container">
+					<h3>Your cart is empty</h3>
+					<Link to="/shop" className="edit-link">
 						Continue Shopping
 					</Link>
 				</div>
@@ -152,7 +153,8 @@ const CartPage = () => {
 										<p>Price: ₹{item.price}</p>
 										<p>Quantity: {item.quantity}</p>
 									</Link>
-									{buttonText != "Proceed to Payment" ? (
+									{buttonText != "Proceed to Payment" ||
+									buttonText != "Processing payment..." ? (
 										<button
 											className="remove-button"
 											onClick={() => handleRemoveItem(item.cart_id)}
