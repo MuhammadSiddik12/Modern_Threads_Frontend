@@ -1,48 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../assets/styles/MyOrders.css";
+import { getAllMyOrders } from "../services/ApiService";
 
 const MyOrders = () => {
-	const orders = [
-		{
-			id: 1,
-			date: "2024-08-29",
-			total: 24999,
-			status: "Delivered",
-		},
-		{
-			id: 2,
-			date: "2024-08-27",
-			total: 1999,
-			status: "Shipped",
-		},
-		{
-			id: 3,
-			date: "2024-08-25",
-			total: 599,
-			status: "Processing",
-		},
-	];
+	const [orders, setOrders] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		const fetchOrders = async () => {
+			setIsLoading(true);
+			try {
+				const response = await getAllMyOrders();
+				setOrders(response.data);
+			} catch (error) {
+				console.error("Error fetching orders:", error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+		fetchOrders();
+	}, []);
 
 	return (
 		<div className="my-orders-page">
 			<h2>My Orders</h2>
-			<div className="orders-list">
-				{orders.map((order) => (
-					<div key={order.id} className="order-card">
-						<h3>Order #{order.id}</h3>
-						<p>Date: {order.date}</p>
-						<p>Total: ₹{order.total}</p>
-						<p>Status: {order.status}</p>
-						<Link
-							to={`/orders/orderDetails/${order.id}`}
-							className="details-link"
-						>
-							View Details
-						</Link>
-					</div>
-				))}
-			</div>
+			{isLoading ? (
+				<h2>Loading orders...</h2>
+			) : orders.length > 0 ? (
+				<div className="orders-list">
+					{orders.map((order) => (
+						<div key={order.order_id} className="order-card">
+							<h3>OrderId: #{order.order_id}</h3>
+							<p>Date: {new Date(order.created_at).toLocaleString()}</p>
+							<p>Total: ₹{order.total_price}</p>
+							<p>Status: {order.order_status}</p>
+							<Link
+								to={`/orders/orderDetails/${order.id}`}
+								className="details-link"
+							>
+								View Details
+							</Link>
+						</div>
+					))}
+				</div>
+			) : (
+				<p>No orders found.</p>
+			)}
 		</div>
 	);
 };

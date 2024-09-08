@@ -208,6 +208,21 @@ export const createPaymentCheckout = async (order_id) => {
 	}
 };
 
+export const getAllMyOrders = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(`${API_URL}/cart/order/getAllMyOrders`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
 const handleError = (error) => {
 	console.error("API error:", error);
 	throw error.response?.data?.message || error.message;
