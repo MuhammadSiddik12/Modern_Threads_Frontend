@@ -36,15 +36,17 @@ const PaymentDetailsPage = () => {
 						<strong>Transaction ID:</strong> {transaction.payment_id}
 					</p>
 					<p>
-						<strong>Total Amount:</strong> ${transaction.totalAmount}
+						<strong>Total Amount:</strong> ₹{transaction.amount}
 					</p>
 					<h2>Items</h2>
 					<ul>
-						{/* {transaction.TransactionDetails.map((detail) => (
-                            <li key={detail.id}>
-                                Product ID: {detail.productId} - Quantity: {detail.quantity} - Price: ${detail.price}
-                            </li>
-                        ))} */}
+						{transaction.cart_details.map((detail) => (
+							<li key={detail.product_id}>
+								Product Name: {detail.product_details.product_name}
+								Product Id: {detail.product_id} - Quantity: {detail.quantity} -
+								Price: ${detail.price}
+							</li>
+						))}
 					</ul>
 				</div>
 			)}

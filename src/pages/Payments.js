@@ -33,7 +33,8 @@ const Payment = () => {
 				{payments.map((payment) => (
 					<li key={payment.payment_id}>
 						<a href={`/payments/${payment.payment_id}`}>
-							Payment {payment.payment_id} - ${payment.totalAmount}
+							Payment: {payment.payment_id} - ₹
+							{payment.price}
 						</a>
 					</li>
 				))}
