@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import "../../assets/styles/User/LoginSignup.css";
 import { Link, useNavigate } from "react-router-dom";
-import AuthService from "../../services/authService";
+import AuthService from "../../services/AuthService";
 import { AuthContext } from "../../services/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signupUser } from "../../services/ApiService";
 
-const SignupForm = () => {
+const SignUp = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -97,4 +97,4 @@ const SignupForm = () => {
 	);
 };
 
-export default SignupForm;
+export default SignUp;

@@ -1,22 +1,22 @@
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PrivateRoute from "./services/PrivateRoute";
+import { AuthProvider } from "./services/AuthContext.js";
+import { ToastContainer } from "react-toastify";
 import ProductList from "./pages/Products/ProductList.js";
+import ProductDetails from "./pages/Products/ProductDetails.js";
+import Shop from "./pages/Products/Shop.js";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Shop from "./pages/Products/Shop.js";
 import Login from "./pages/User/Login.js";
 import Signup from "./pages/User/Signup.js";
-import PrivateRoute from "./services/PrivateRoute";
-import ProfilePage from "./pages/User/Profile.js";
-import { AuthProvider } from "./services/AuthContext.js";
-import CartPage from "./pages/Products/Cart.js";
-import ProductDetails from "./pages/Products/ProductDetails.js";
-import MyOrders from "./pages/Orders/MyOrder.js";
+import Profile from "./pages/User/Profile.js";
+import Cart from "./pages/Products/Cart.js";
+import Orders from "./pages/Orders/Order.js";
 import OrderDetails from "./pages/Orders/OrderDetails.js";
 import EditProfile from "./pages/User/EditProfile.js";
 import Categories from "./components/Categories.js";
-import { ToastContainer } from "react-toastify";
 import Payment from "./pages/Payments/Payments.js";
 import PaymentDetails from "./pages/Payments/PaymentDetails.js";
 
@@ -36,7 +36,7 @@ function App() {
 						path="/profile"
 						element={
 							<PrivateRoute>
-								<ProfilePage />
+								<Profile />
 							</PrivateRoute>
 						}
 					/>
@@ -49,7 +49,7 @@ function App() {
 						path="/cart"
 						element={
 							<PrivateRoute>
-								<CartPage />
+								<Cart />
 							</PrivateRoute>
 						}
 					/>
@@ -57,7 +57,7 @@ function App() {
 						path="/orders"
 						element={
 							<PrivateRoute>
-								<MyOrders />
+								<Orders />
 							</PrivateRoute>
 						}
 					/>
@@ -87,7 +87,7 @@ function App() {
 						}
 					/>
 					<Route
-						path="/payments/:transactionId"
+						path="/payments/:paymentId"
 						element={
 							<PrivateRoute>
 								<PaymentDetails />

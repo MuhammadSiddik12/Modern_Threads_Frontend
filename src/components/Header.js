@@ -6,7 +6,7 @@ import userDefault from "../assets/images/user.png";
 import header_logo from "../assets/images/header_logo.svg";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../services/AuthContext";
-import AuthService from "../services/authService";
+import AuthService from "../services/AuthService";
 import { IMAGE_URL, getAllProducts } from "../services/ApiService"; // Import your API service
 
 const Header = () => {

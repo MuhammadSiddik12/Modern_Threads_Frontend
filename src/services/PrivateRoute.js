@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import AuthService from "./authService";
+import AuthService from "./AuthService";
 
 const PrivateRoute = ({ children }) => {
 	// Check if the user is authenticated

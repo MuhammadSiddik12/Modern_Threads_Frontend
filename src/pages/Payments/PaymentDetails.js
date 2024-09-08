@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { getPaymentById } from "../../services/ApiService"; // Ensure you have this function
 import "../../assets/styles/Payments/PaymentDetails.css"; // Import CSS file
 
-const PaymentDetailsPage = () => {
-	const { transactionId } = useParams();
+const PaymentDetails = () => {
+	const { paymentId } = useParams();
 	const [transaction, setTransaction] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -12,7 +12,7 @@ const PaymentDetailsPage = () => {
 	useEffect(() => {
 		const fetchTransactionDetails = async () => {
 			try {
-				const response = await getPaymentById(transactionId);
+				const response = await getPaymentById(paymentId);
 				setTransaction(response.data);
 			} catch (err) {
 				setError(err.message);
@@ -22,7 +22,7 @@ const PaymentDetailsPage = () => {
 		};
 
 		fetchTransactionDetails();
-	}, [transactionId]);
+	}, [paymentId]);
 
 	if (loading) return <div className="loading">Loading...</div>;
 	if (error) return <div className="error">Error: {error}</div>;
@@ -54,4 +54,4 @@ const PaymentDetailsPage = () => {
 	);
 };
 
-export default PaymentDetailsPage;
+export default PaymentDetails;

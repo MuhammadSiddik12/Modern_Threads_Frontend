@@ -8,7 +8,7 @@ import "../../assets/styles/User/EditProfile.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AuthService from "../../services/authService";
+import AuthService from "../../services/AuthService";
 
 const EditProfile = () => {
 	const [profilePic, setProfilePic] = useState("");

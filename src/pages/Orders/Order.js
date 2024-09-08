@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../../assets/styles/Orders/MyOrders.css";
+import "../../assets/styles/Orders/Orders.css";
 import { getAllMyOrders } from "../../services/ApiService";
 
-const MyOrders = () => {
+const Orders = () => {
 	const [orders, setOrders] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -51,4 +51,4 @@ const MyOrders = () => {
 	);
 };
 
-export default MyOrders;
+export default Orders;

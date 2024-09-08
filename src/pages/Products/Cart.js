@@ -13,7 +13,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CartPage = () => {
+const Cart = () => {
 	const [cartItems, setCartItems] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -212,4 +212,4 @@ const CartPage = () => {
 	);
 };
 
-export default CartPage;
+export default Cart;
