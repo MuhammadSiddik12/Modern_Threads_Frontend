@@ -8,6 +8,7 @@ import "../assets/styles/EditProfile.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthService from "../services/authService";
 
 const EditProfile = () => {
 	const [profilePic, setProfilePic] = useState("");
@@ -67,8 +68,8 @@ const EditProfile = () => {
 				formDataUser.profile_pic = imageUrl;
 			}
 
-			await updateUserDetails({ ...formDataUser });
-			updateUser();
+			const user = await updateUserDetails({ ...formDataUser });
+			AuthService.updateUser(user.data);
 			toast.success("Profile updated successfully!");
 			navigate("/profile");
 		} catch (error) {
