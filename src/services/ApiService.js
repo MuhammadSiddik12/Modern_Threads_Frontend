@@ -290,8 +290,15 @@ export const getPaymentById = async (paymentId) => {
 };
 
 const handleError = (error) => {
-	console.error("API error:", error);
-	throw error.response?.data?.message || error.message;
+	if (error.response?.status === 401) {
+		// Clear local storage and redirect to login
+		localStorage.removeItem("authToken");
+		localStorage.removeItem("user");
+		window.location.href = "/login"; // Redirect to login page
+	} else {
+		console.error("API error:", error);
+		throw error.response?.data?.message || error.message;
+	}
 };
 
 export const logout = async () => {
