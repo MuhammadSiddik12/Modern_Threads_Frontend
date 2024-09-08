@@ -13,7 +13,11 @@ const Categories = () => {
 		const loadCategories = async () => {
 			try {
 				const data = await getAllCategories();
-				data.data.unshift({ category_name: "All", category_image: menu });
+				data.data.unshift({
+					category_id: "All",
+					category_name: "All",
+					category_image: menu,
+				});
 				setCategories(data.data); // Set the fetched categories
 			} catch (err) {
 				setError("Failed to load categories");
@@ -39,7 +43,10 @@ const Categories = () => {
 			<div className="categories">
 				{/* Flex container for category items */}
 				{categories.map((category, index) => (
-					<Link to={`/shopbycategory/${category.category_id}`} className="edit-link">
+					<Link
+						to={`/shopbycategory/${category.category_id}`}
+						className="edit-link"
+					>
 						<div key={index} className="category">
 							{/* Individual category item */}
 							<img
