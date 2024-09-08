@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "../components/ProductCard";
-import "../assets/styles/ProductList.css";
-import Categories from "../components/Categories";
-import Banner from "../components/Banner";
-import banner0 from "../assets/images/banner.png";
-import banner1 from "../assets/images/banner1.png";
-import banner2 from "../assets/images/banner2.png";
-import { getAllProducts } from "../services/ApiService";
+import ProductCard from "../../components/ProductCard";
+import "../../assets/styles/Products/ProductList.css";
+import Categories from "../../components/Categories";
+import Banner from "../../components/Banner";
+import banner0 from "../../assets/images/banner.png";
+import banner1 from "../../assets/images/banner1.png";
+import banner2 from "../../assets/images/banner2.png";
+import { getAllProducts } from "../../services/ApiService";
 
 function ProductList() {
 	const [products, setProduct] = useState([]);

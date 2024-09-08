@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../services/AuthContext";
+import { AuthContext } from "../../services/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import "../assets/styles/ProfilePage.css";
-import userDefault from "../assets/images/user.png";
-import { getUserDetails, IMAGE_URL } from "../services/ApiService";
+import "../../assets/styles/User/ProfilePage.css";
+import userDefault from "../../assets/images/user.png";
+import { getUserDetails, IMAGE_URL } from "../../services/ApiService";
 
 const ProfilePage = () => {
 	const { logout } = useContext(AuthContext);

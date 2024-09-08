@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import "../assets/styles/OrderDetails.css";
-import { getOrderDetailsById, IMAGE_URL } from "../services/ApiService";
+import "../../assets/styles/Orders/OrderDetails.css";
+import { getOrderDetailsById, IMAGE_URL } from "../../services/ApiService";
 
 const OrderDetails = () => {
 	const { orderId } = useParams();

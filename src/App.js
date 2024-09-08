@@ -1,24 +1,24 @@
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ProductList from "./pages/ProductList.js";
+import ProductList from "./pages/Products/ProductList.js";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Shop from "./pages/Shop.js";
-import Login from "./pages/Login.js";
-import Signup from "./pages/Signup.js";
+import Shop from "./pages/Products/Shop.js";
+import Login from "./pages/User/Login.js";
+import Signup from "./pages/User/Signup.js";
 import PrivateRoute from "./services/PrivateRoute";
-import ProfilePage from "./pages/Profile.js";
+import ProfilePage from "./pages/User/Profile.js";
 import { AuthProvider } from "./services/AuthContext.js";
-import CartPage from "./pages/Cart.js";
-import ProductDetails from "./pages/ProductDetails.js";
-import MyOrders from "./pages/MyOrder.js";
-import OrderDetails from "./pages/OrderDetails.js";
-import EditProfile from "./pages/EditProfile.js";
+import CartPage from "./pages/Products/Cart.js";
+import ProductDetails from "./pages/Products/ProductDetails.js";
+import MyOrders from "./pages/Orders/MyOrder.js";
+import OrderDetails from "./pages/Orders/OrderDetails.js";
+import EditProfile from "./pages/User/EditProfile.js";
 import Categories from "./components/Categories.js";
 import { ToastContainer } from "react-toastify";
-import Payment from "./pages/Payments.js";
-import PaymentDetails from "./pages/PaymentDetails.js";
+import Payment from "./pages/Payments/Payments.js";
+import PaymentDetails from "./pages/Payments/PaymentDetails.js";
 
 function App() {
 	return (

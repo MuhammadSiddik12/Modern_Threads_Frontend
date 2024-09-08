@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "../assets/styles/Shop.css";
+import "../../assets/styles/Products/Shop.css";
 import ReactPaginate from "react-paginate";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../../components/ProductCard";
 import {
 	getAllCategories,
 	getAllProducts,
 	getAllProductsByCategory,
-} from "../services/ApiService";
+} from "../../services/ApiService";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function Shop() {

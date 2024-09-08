@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthService from "../services/authService";
-import "../assets/styles/LoginSignup.css";
-import { AuthContext } from "../services/AuthContext";
+import AuthService from "../../services/authService";
+import "../../assets/styles/User/LoginSignup.css";
+import { AuthContext } from "../../services/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginUser } from "../services/ApiService";
+import { loginUser } from "../../services/ApiService";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState(""); // State for storing email input

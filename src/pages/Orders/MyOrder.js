@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../assets/styles/MyOrders.css";
-import { getAllMyOrders } from "../services/ApiService";
+import "../../assets/styles/Orders/MyOrders.css";
+import { getAllMyOrders } from "../../services/ApiService";
 
 const MyOrders = () => {
 	const [orders, setOrders] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getPaymentById } from "../services/ApiService"; // Ensure you have this function
-import "../assets/styles/PaymentDetails.css"; // Import CSS file
+import { getPaymentById } from "../../services/ApiService"; // Ensure you have this function
+import "../../assets/styles/Payments/PaymentDetails.css"; // Import CSS file
 
 const PaymentDetailsPage = () => {
 	const { transactionId } = useParams();

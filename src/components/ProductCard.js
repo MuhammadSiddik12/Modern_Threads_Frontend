@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../assets/styles/ProductCard.css";
+import "../assets/styles/Products/ProductCard.css";
 import { Link } from "react-router-dom";
 import { addToCart, IMAGE_URL } from "../services/ApiService";
 import { toast } from "react-toastify";

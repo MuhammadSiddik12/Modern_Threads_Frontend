@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "../assets/styles/ProductDetails.css";
+import "../../assets/styles/Products/ProductDetails.css";
 import {
 	addToCart,
 	getProductDetailsById,
 	IMAGE_URL,
-} from "../services/ApiService";
+} from "../../services/ApiService";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

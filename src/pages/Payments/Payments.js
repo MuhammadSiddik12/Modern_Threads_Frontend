@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getAllPayments } from "../services/ApiService"; // Ensure you have this function
-import "../assets/styles/Payment.css"; // Import CSS file
+import { getAllPayments } from "../../services/ApiService"; // Ensure you have this function
+import "../../assets/styles/Payments/Payment.css"; // Import CSS file
 
 const Payment = () => {
 	const [payments, setPayments] = useState([]);
@@ -33,8 +33,7 @@ const Payment = () => {
 				{payments.map((payment) => (
 					<li key={payment.payment_id}>
 						<a href={`/payments/${payment.payment_id}`}>
-							Payment: {payment.payment_id} - ₹
-							{payment.price}
+							Payment: {payment.payment_id} - ₹{payment.price}
 						</a>
 					</li>
 				))}

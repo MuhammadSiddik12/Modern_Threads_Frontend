@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import "../assets/styles/LoginSignup.css";
+import "../../assets/styles/User/LoginSignup.css";
 import { Link, useNavigate } from "react-router-dom";
-import AuthService from "../services/authService";
-import { AuthContext } from "../services/AuthContext";
+import AuthService from "../../services/authService";
+import { AuthContext } from "../../services/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { signupUser } from "../services/ApiService";
+import { signupUser } from "../../services/ApiService";
 
 const SignupForm = () => {
 	const [firstName, setFirstName] = useState("");
