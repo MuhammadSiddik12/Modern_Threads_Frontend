@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthService from "../../services/AuthService";
 
 const EditProfile = () => {
-	const [profilePic, setProfilePic] = useState("");
+	const [uploadPic, setUploadPic] = useState("");
 	const [userInfo, setUserInfo] = useState({});
 	const navigate = useNavigate();
 	const [buttonText, setButtonText] = useState("Save Changes");
@@ -23,7 +23,6 @@ const EditProfile = () => {
 			try {
 				const user = await getUserDetails();
 				setUserInfo(user.data);
-				setProfilePic(user.data.profile_pic || "");
 				setLoading(false);
 			} catch (error) {
 				console.error("Error fetching user details:", error);
@@ -45,7 +44,7 @@ const EditProfile = () => {
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];
 		if (file) {
-			setProfilePic(file);
+			setUploadPic(file);
 		}
 	};
 
@@ -59,9 +58,9 @@ const EditProfile = () => {
 			};
 
 			let imageUrl = null;
-			if (profilePic) {
+			if (uploadPic) {
 				const formDataImage = new FormData();
-				formDataImage.append("image", profilePic);
+				formDataImage.append("image", uploadPic);
 
 				const imageResponse = await uploadImage(formDataImage);
 				imageUrl = imageResponse.filePath;

@@ -40,6 +40,7 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
 	.edit-profile-page {
+		padding: 20px 15px; /* Adjust padding for smaller screens */
 		flex-direction: column;
 		/* margin-top: 30%; */
 	}
