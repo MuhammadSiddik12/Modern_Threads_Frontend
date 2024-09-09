@@ -9,6 +9,54 @@
 	width: 100%;
 	object-fit: cover; /* Cover the banner area while maintaining aspect ratio */
 }
+/* Banner container */
+.banner {
+	width: 100%; /* Full width */
+	min-height: 50vh; /* Minimum height (viewport height) */
+	position: relative; /* Relative positioning for overlay */
+	overflow: hidden; /* Hide overflow content */
+}
+
+/* Banner image styling */
+.banner img {
+	width: 100%; /* Full width of the container */
+	object-fit: cover; /* Cover the container while maintaining aspect ratio */
+}
+
+/* Styling for the banner link */
+.banner-link {
+	text-decoration: none; /* Remove underline from the link */
+}
+
+/* Banner overlay styling */
+.banner-overlay {
+	position: absolute; /* Absolute positioning within banner */
+	top: 0;
+	left: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+	display: flex; /* Flexbox layout */
+	justify-content: center; /* Center horizontally */
+	align-items: center; /* Center vertically */
+	color: white; /* Text color */
+	font-size: 24px; /* Font size */
+	font-weight: bold; /* Bold text */
+	padding: 10px; /* Padding around text */
+	text-align: center; /* Center-align text */
+}
+
+/* Responsive styles for tablets and smaller screens */
+@media (max-width: 768px) {
+	.banner {
+		min-height: 20vh; /* Reduce height for smaller screens */
+		margin-bottom: -30px; /* Adjust margin */
+	}
+
+	.banner-overlay {
+		font-size: 18px; /* Smaller text size for smaller screens */
+	}
+}
 
 .banner-link {
 	text-decoration: none; /* Ensure no underline on the link */
