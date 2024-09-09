@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Banner = ({ bannerImg }) => {
 	return (
-		<Link to={`/shop`} className="edit-link">
+		<Link to={`/shop`} className="banner-link">
 			<div className="banner">
 				{" "}
 				{/* Container for the banner */}

@@ -1,0 +1,52 @@
+.terms-and-conditions,
+.privacy-policy,
+.about-us {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: Arial, sans-serif;
+}
+
+h1 {
+	font-size: 2em;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+h2 {
+	font-size: 1.5em;
+	margin-top: 20px;
+	color: #555;
+}
+
+p {
+	font-size: 1em;
+	line-height: 1.6;
+	color: #666;
+}
+
+ul {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+ul li {
+	margin-bottom: 10px;
+	color: #666;
+}
+
+@media (max-width: 768px) {
+	.terms-and-conditions,
+	.privacy-policy,
+	.about-us {
+		margin-top: 10%;
+	}
+}
+
+@media (max-width: 480px) {
+	.terms-and-conditions,
+	.privacy-policy,
+	.about-us {
+		margin-top: 30%;
+	}
+}

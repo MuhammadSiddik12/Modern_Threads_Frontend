@@ -10,6 +10,10 @@
 	object-fit: cover; /* Cover the banner area while maintaining aspect ratio */
 }
 
+.banner-link {
+	text-decoration: none; /* Ensure no underline on the link */
+}
+
 .banner-overlay {
 	position: absolute;
 	top: 0;

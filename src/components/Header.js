@@ -1,18 +1,17 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../assets/styles/Header.css";
-import cart from "../assets/images/shopping-cart.png";
-import userDefault from "../assets/images/user.png";
-import header_logo from "../assets/images/header_logo.svg";
-import { Link } from "react-router-dom";
+import cartIcon from "../assets/images/shopping-cart.png";
+import userDefaultIcon from "../assets/images/user.png";
+import headerLogo from "../assets/images/header_logo.svg";
 import { AuthContext } from "../services/AuthContext";
 import AuthService from "../services/AuthService";
-import { IMAGE_URL, getAllProducts } from "../services/ApiService"; // Import your API service
+import { IMAGE_URL, getAllProducts } from "../services/ApiService";
 
 const Header = () => {
 	const { isAuthenticated } = useContext(AuthContext);
 	const user = AuthService.getUser();
-	const profilePic = user?.profile_pic || userDefault;
+	const profilePic = user?.profile_pic || userDefaultIcon;
 
 	const [buttonText, setButtonText] = useState("Search");
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -20,31 +19,27 @@ const Header = () => {
 	const navigate = useNavigate();
 
 	const handleSearch = async (e) => {
-		try {
-			setButtonText("Searching...");
-			setIsButtonDisabled(true);
-			e.preventDefault();
+		e.preventDefault();
+		setButtonText("Searching...");
+		setIsButtonDisabled(true);
 
-			// Fetch search results
+		try {
 			const results = await getAllProducts(
 				1,
 				9,
 				searchQuery,
-				user.user_id || ""
+				user?.user_id || ""
 			);
-
-			// Navigate to the Shop page with the search results
-			setButtonText("Search");
-			setIsButtonDisabled(false);
 			navigate("/shop", {
 				state: {
-					searchQuery: searchQuery,
+					searchQuery,
 					searchResults: results.data,
 					total_count: results.total_count,
 				},
 			});
 		} catch (error) {
-			console.log("🚀 ~ handleSearch ~ error:", error);
+			console.error("Search error:", error);
+		} finally {
 			setButtonText("Search");
 			setIsButtonDisabled(false);
 		}
@@ -53,14 +48,14 @@ const Header = () => {
 	return (
 		<header className="header">
 			<img
-				src={header_logo}
-				alt="logo"
+				src={headerLogo}
+				alt="Modern Threads Logo"
 				style={{ width: "270px", height: "auto" }}
 			/>
 			<nav className="header-nav">
-				<a href="/">Home</a>
-				<a href="/shop">Shop</a>
-				<a href="/category">Category</a>
+				<Link to="/">Home</Link>
+				<Link to="/shop">Shop</Link>
+				<Link to="/category">Category</Link>
 			</nav>
 			<div className="header-search">
 				<input
@@ -70,15 +65,15 @@ const Header = () => {
 					disabled={isButtonDisabled}
 					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
-				<button onClick={handleSearch}>{buttonText}</button>
+				<button onClick={handleSearch} disabled={isButtonDisabled}>
+					{buttonText}
+				</button>
 			</div>
 			<div className="header-icons">
 				<Link to="/cart">
 					<div className="icon-container">
-						<img src={cart} alt="Cart" />
-						<a className="icon" href="" title="Cart">
-							Cart
-						</a>
+						<img src={cartIcon} alt="Cart" />
+						<span>Cart</span>
 					</div>
 				</Link>
 				{isAuthenticated ? (
@@ -89,18 +84,14 @@ const Header = () => {
 								alt="Profile"
 								className="profile-icon"
 							/>
-							<a className="icon" href="" title="Profile">
-								Profile
-							</a>
+							<span>Profile</span>
 						</div>
 					</Link>
 				) : (
 					<Link to="/login">
 						<div className="icon-container">
-							<img src={userDefault} alt="User Profile" />
-							<a className="icon" href="" title="Login">
-								Login
-							</a>
+							<img src={userDefaultIcon} alt="Login" />
+							<span>Login</span>
 						</div>
 					</Link>
 				)}

@@ -19,9 +19,18 @@ const ProductDetails = () => {
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false); // State to manage button disabled status
 
 	useEffect(() => {
+		let user_id = "";
+		const user = localStorage.getItem("user");
+
+		if (user) {
+			console.log("🚀 ~ loadCategories ~ user:", user);
+			const data = JSON.parse(user);
+			user_id = data ? data.user_id : "";
+		}
+
 		const getProductDetails = async () => {
 			try {
-				const response = await getProductDetailsById(productId);
+				const response = await getProductDetailsById(productId, user_id);
 				setLoading(false);
 				setProduct(response.data);
 				if (response.data.is_added) {

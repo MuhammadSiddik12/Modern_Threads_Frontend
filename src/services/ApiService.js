@@ -3,12 +3,24 @@ import axios from "axios";
 const API_URL = "http://localhost:3001/users";
 export const IMAGE_URL = "http://localhost:3001";
 
+// Helper function to handle errors
+const handleError = (error) => {
+	if (error.response?.status === 401) {
+		// Clear local storage and redirect to login
+		localStorage.removeItem("authToken");
+		localStorage.removeItem("user");
+		window.location.href = "/login"; // Redirect to login page
+	} else {
+		console.error("API error:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
+
+// User Authentication
 export const signupUser = async (data) => {
 	try {
 		const response = await axios.post(`${API_URL}/userRegister`, data, {
-			headers: {
-				"Content-Type": "application/json",
-			},
+			headers: { "Content-Type": "application/json" },
 		});
 		return response.data;
 	} catch (error) {
@@ -19,8 +31,34 @@ export const signupUser = async (data) => {
 export const loginUser = async (data) => {
 	try {
 		const response = await axios.post(`${API_URL}/userLogin`, data, {
+			headers: { "Content-Type": "application/json" },
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+// User Management
+export const getUserDetails = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+		const response = await axios.get(`${API_URL}/getUserDetails`, {
+			headers: { Authorization: `Bearer ${token}` },
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const updateUserDetails = async (data) => {
+	try {
+		const token = localStorage.getItem("authToken");
+		const response = await axios.put(`${API_URL}/editUserProfile`, data, {
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
 			},
 		});
 		return response.data;
@@ -29,6 +67,7 @@ export const loginUser = async (data) => {
 	}
 };
 
+// Product Management
 export const getAllCategories = async () => {
 	try {
 		const response = await axios.get(`${API_URL}/category/getAllCategories`);
@@ -60,10 +99,10 @@ export const getAllProductsByCategory = async (id, page, limit, search) => {
 	}
 };
 
-export const getProductDetailsById = async (product_id) => {
+export const getProductDetailsById = async (product_id, user_id) => {
 	try {
 		const response = await axios.get(
-			`${API_URL}/products/getProductById?product_id=${product_id}`
+			`${API_URL}/products/getProductById?product_id=${product_id}&user_id=${user_id}`
 		);
 		return response.data;
 	} catch (error) {
@@ -71,35 +110,31 @@ export const getProductDetailsById = async (product_id) => {
 	}
 };
 
+// Cart Management
 export const addToCart = async (data) => {
 	try {
 		const token = localStorage.getItem("authToken");
-
 		const response = await axios.post(`${API_URL}/cart/addToCart`, data, {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
 			},
 		});
-
 		return response.data;
 	} catch (error) {
-		if (error.status == 401) {
+		if (error.response?.status === 401) {
 			handleError({ message: "Please log in to add product to your cart." });
+		} else {
+			handleError(error);
 		}
-
-		handleError(error);
 	}
 };
 
 export const getCartItems = async () => {
 	try {
 		const token = localStorage.getItem("authToken");
-
 		const response = await axios.get(`${API_URL}/cart/getAllCartItems`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
+			headers: { Authorization: `Bearer ${token}` },
 		});
 		return response.data;
 	} catch (error) {
@@ -107,60 +142,18 @@ export const getCartItems = async () => {
 	}
 };
 
-export const removeCartItem = (id) => {
-	const token = localStorage.getItem("authToken");
-
-	return axios.delete(`${API_URL}/cart/removeItem?cart_id=${id}`, {
-		headers: {
-			Authorization: `Bearer ${token}`,
-		},
-	});
-};
-
-export const getUserDetails = async () => {
+export const removeCartItem = async (id) => {
 	try {
 		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(`${API_URL}/getUserDetails`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
+		await axios.delete(`${API_URL}/cart/removeItem?cart_id=${id}`, {
+			headers: { Authorization: `Bearer ${token}` },
 		});
-		return response.data;
 	} catch (error) {
 		handleError(error);
 	}
 };
 
-export const updateUserDetails = async (data) => {
-	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.put(`${API_URL}/editUserProfile`, data, {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		handleError(error);
-	}
-};
-
-export const uploadImage = async (formData) => {
-	try {
-		const response = await axios.post(`${IMAGE_URL}/uploadImage`, formData, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		});
-		return response.data;
-	} catch (error) {
-		handleError(error);
-	}
-};
-
+// Order Management
 export const checkoutCart = async (
 	orderItems,
 	shippingAddress,
@@ -168,7 +161,6 @@ export const checkoutCart = async (
 ) => {
 	try {
 		const token = localStorage.getItem("authToken");
-
 		const response = await axios.post(
 			`${API_URL}/cart/order/createOrder`,
 			{
@@ -178,49 +170,41 @@ export const checkoutCart = async (
 			},
 			{
 				headers: {
-					Authorization: `Bearer ${token}`, // Ensure token is stored in localStorage
+					Authorization: `Bearer ${token}`,
 					"Content-Type": "application/json",
 				},
 			}
 		);
 		return response.data;
 	} catch (error) {
-		console.log("🚀 ~ error:", error);
-		throw error.response.data.message || "Checkout failed.";
+		handleError(error);
 	}
 };
 
 export const createPaymentCheckout = async (order_id) => {
 	try {
 		const token = localStorage.getItem("authToken");
-
 		const response = await axios.post(
 			`${API_URL}/payments/createPaymentCheckout`,
-			{
-				order_id: order_id,
-			},
+			{ order_id },
 			{
 				headers: {
-					Authorization: `Bearer ${token}`, // Ensure token is stored in localStorage
+					Authorization: `Bearer ${token}`,
 					"Content-Type": "application/json",
 				},
 			}
 		);
 		return response.data;
 	} catch (error) {
-		console.log("🚀 ~ error:", error);
-		throw error.response.data.message || "Checkout failed.";
+		handleError(error);
 	}
 };
 
 export const getAllMyOrders = async () => {
 	try {
 		const token = localStorage.getItem("authToken");
-
 		const response = await axios.get(`${API_URL}/cart/order/getAllMyOrders`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
+			headers: { Authorization: `Bearer ${token}` },
 		});
 		return response.data;
 	} catch (error) {
@@ -231,14 +215,9 @@ export const getAllMyOrders = async () => {
 export const getOrderDetailsById = async (order_id) => {
 	try {
 		const token = localStorage.getItem("authToken");
-
 		const response = await axios.get(
 			`${API_URL}/cart/order/getOrderDetailsById?order_id=${order_id}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
+			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 		return response.data;
 	} catch (error) {
@@ -246,26 +225,24 @@ export const getOrderDetailsById = async (order_id) => {
 	}
 };
 
-export const cancelOrder = (id) => {
-	const token = localStorage.getItem("authToken");
-
-	return axios.delete(`${API_URL}/cart/order/cancelOrderById?order_id=${id}`, {
-		headers: {
-			Authorization: `Bearer ${token}`,
-		},
-	});
+export const cancelOrder = async (id) => {
+	try {
+		const token = localStorage.getItem("authToken");
+		await axios.delete(`${API_URL}/cart/order/cancelOrderById?order_id=${id}`, {
+			headers: { Authorization: `Bearer ${token}` },
+		});
+	} catch (error) {
+		handleError(error);
+	}
 };
 
 // Payments
 export const getAllPayments = async (page, limit) => {
 	try {
 		const token = localStorage.getItem("authToken");
-
 		const response = await axios.get(`${API_URL}/payments/getAllPayments`, {
 			params: { page, limit },
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
+			headers: { Authorization: `Bearer ${token}` },
 		});
 		return response.data;
 	} catch (error) {
@@ -276,12 +253,9 @@ export const getAllPayments = async (page, limit) => {
 export const getPaymentById = async (paymentId) => {
 	try {
 		const token = localStorage.getItem("authToken");
-
 		const response = await axios.get(`${API_URL}/payments/getPaymentDetails`, {
 			params: { payment_id: paymentId },
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
+			headers: { Authorization: `Bearer ${token}` },
 		});
 		return response.data;
 	} catch (error) {
@@ -289,22 +263,23 @@ export const getPaymentById = async (paymentId) => {
 	}
 };
 
-const handleError = (error) => {
-	if (error.response?.status === 401) {
-		// Clear local storage and redirect to login
-		localStorage.removeItem("authToken");
-		localStorage.removeItem("user");
-		window.location.href = "/login"; // Redirect to login page
-	} else {
-		console.error("API error:", error);
-		throw error.response?.data?.message || error.message;
+// Image Upload
+export const uploadImage = async (formData) => {
+	try {
+		const response = await axios.post(`${IMAGE_URL}/uploadImage`, formData, {
+			headers: { "Content-Type": "multipart/form-data" },
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
 	}
 };
 
+// Logout
 export const logout = async () => {
 	try {
 		localStorage.removeItem("authToken");
 	} catch (error) {
-		throw error.message ? error.message : "Logout failed";
+		throw error.message || "Logout failed";
 	}
 };

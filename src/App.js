@@ -19,6 +19,9 @@ import EditProfile from "./pages/User/EditProfile.js";
 import Categories from "./components/Categories.js";
 import Payment from "./pages/Payments/Payments.js";
 import PaymentDetails from "./pages/Payments/PaymentDetails.js";
+import AboutUs from "./components/AboutUs.js";
+import PrivacyPolicy from "./components/PrivacyPolicy.js";
+import TermsAndConditions from "./components/TermsAndConditions.js";
 
 function App() {
 	return (
@@ -32,6 +35,9 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/category" element={<Categories />} />
+					<Route path="/about" element={<AboutUs />} />
+					<Route path="/privacy" element={<PrivacyPolicy />} />
+					<Route path="/terms" element={<TermsAndConditions />} />
 					<Route
 						path="/profile"
 						element={

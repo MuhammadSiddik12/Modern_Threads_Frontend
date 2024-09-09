@@ -1,12 +1,14 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import AuthService from "./AuthService";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, redirectTo = "/login" }) => {
+	const location = useLocation();
+
 	// Check if the user is authenticated
 	if (!AuthService.isAuthenticated()) {
-		// Redirect to login page if not authenticated
-		return <Navigate to="/login" />;
+		// Redirect to login page with the current location saved
+		return <Navigate to={redirectTo} state={{ from: location }} />;
 	}
 
 	// Render the protected component if authenticated
