@@ -15,20 +15,18 @@ const Login = () => {
 	const { login } = useContext(AuthContext); // Get login function from AuthContext
 
 	const handleSubmit = async (e) => {
-		e.preventDefault(); // Prevent default form submission behavior
-
 		if (email && password) {
+			// Check if email and password are provided
 			setLoading(true); // Set loading to true when starting the login process
 			try {
-				const response = await loginUser({ email, password });
+				const response = await loginUser({ email, password }); // Call login API
 				login(response.data); // Set user data in context
 				AuthService.login(response.data); // Save user data in localStorage
-				localStorage.setItem("authToken", response.token);
-				toast.success("Login successful!");
+				localStorage.setItem("authToken", response.token); // Store auth token
+				toast.success("Login successful!"); // Show success toast
 				navigate("/"); // Redirect to home page after successful login
 			} catch (error) {
-				console.log("🚀 ~ handleSubmit ~ error:", error);
-				toast.error(error.response?.data?.message || "Login failed!"); // Improved error handling
+				toast.error(error || "Login failed!"); // Show error toast
 			} finally {
 				setLoading(false); // Reset loading state
 			}
@@ -60,12 +58,13 @@ const Login = () => {
 					/>
 				</div>
 				<button type="submit" className="auth-button" disabled={loading}>
-					{loading ? "Logging in..." : "Login"}
+					{loading ? "Logging in..." : "Login"}{" "}
+					{/* Show appropriate button text based on loading state */}
 				</button>
 
 				<div className="auth-switch">
 					<span>Don't have an account? </span>
-					<Link to="/signup">Sign up here</Link>
+					<Link to="/signup">Sign up here</Link> {/* Link to signup page */}
 				</div>
 			</form>
 		</div>

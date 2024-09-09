@@ -1,4 +1,3 @@
-// App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./services/PrivateRoute";
@@ -26,9 +25,12 @@ import TermsAndConditions from "./components/TermsAndConditions.js";
 function App() {
 	return (
 		<AuthProvider>
+			{/* Provides authentication context */}
 			<Router>
-				<Header />
+				{/* Router for handling routes */}
+				<Header /> {/* Header component */}
 				<Routes>
+					{/* Define routes */}
 					<Route path="/" element={<ProductList />} />
 					<Route path="/shop" element={<Shop />} />
 					<Route path="/shopbycategory/:categoryId" element={<Shop />} />
@@ -42,6 +44,7 @@ function App() {
 						path="/profile"
 						element={
 							<PrivateRoute>
+								{/* Protects the Profile route */}
 								<Profile />
 							</PrivateRoute>
 						}
@@ -50,11 +53,11 @@ function App() {
 						path="/product/productDetails/:productId"
 						element={<ProductDetails />}
 					/>
-
 					<Route
 						path="/cart"
 						element={
 							<PrivateRoute>
+								{/* Protects the Cart route */}
 								<Cart />
 							</PrivateRoute>
 						}
@@ -63,6 +66,7 @@ function App() {
 						path="/orders"
 						element={
 							<PrivateRoute>
+								{/* Protects the Orders route */}
 								<Orders />
 							</PrivateRoute>
 						}
@@ -71,6 +75,7 @@ function App() {
 						path="/orders/orderDetails/:orderId"
 						element={
 							<PrivateRoute>
+								{/* Protects the OrderDetails route */}
 								<OrderDetails />
 							</PrivateRoute>
 						}
@@ -79,15 +84,16 @@ function App() {
 						path="/editProfile"
 						element={
 							<PrivateRoute>
+								{/* Protects the EditProfile route */}
 								<EditProfile />
 							</PrivateRoute>
 						}
 					/>
-
 					<Route
 						path="/payments"
 						element={
 							<PrivateRoute>
+								{/* Protects the Payments route */}
 								<Payment />
 							</PrivateRoute>
 						}
@@ -96,14 +102,15 @@ function App() {
 						path="/payments/:paymentId"
 						element={
 							<PrivateRoute>
+								{/* Protects the PaymentDetails route */}
 								<PaymentDetails />
 							</PrivateRoute>
 						}
 					/>
 				</Routes>
-				<Footer />
-				<ToastContainer />
-			</Router>{" "}
+				<Footer /> {/* Footer component */}
+				<ToastContainer /> {/* Container for toast notifications */}
+			</Router>
 		</AuthProvider>
 	);
 }

@@ -2,7 +2,7 @@ const AuthService = {
 	// Log in the user and store user data and auth token
 	login: (userData, authToken) => {
 		localStorage.setItem("user", JSON.stringify(userData));
-		localStorage.setItem("authToken", authToken); // Store auth token
+		localStorage.setItem("authToken", authToken);
 	},
 
 	// Log out the user and clear user data and auth token
@@ -16,7 +16,7 @@ const AuthService = {
 		const token = localStorage.getItem("authToken");
 		if (!token) return false;
 
-		// Optional: Add logic here to check for token expiration if necessary
+		// Optional: Add logic here to check for token expiration if needed
 		return !!localStorage.getItem("user");
 	},
 

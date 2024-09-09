@@ -5,13 +5,12 @@ import AuthService from "./AuthService";
 const PrivateRoute = ({ children, redirectTo = "/login" }) => {
 	const location = useLocation();
 
-	// Check if the user is authenticated
+	// Redirect to login if not authenticated
 	if (!AuthService.isAuthenticated()) {
-		// Redirect to login page with the current location saved
 		return <Navigate to={redirectTo} state={{ from: location }} />;
 	}
 
-	// Render the protected component if authenticated
+	// Render children if authenticated
 	return children;
 };
 

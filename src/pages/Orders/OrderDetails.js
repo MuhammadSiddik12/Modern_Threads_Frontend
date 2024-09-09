@@ -1,40 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import "../../assets/styles/Orders/OrderDetails.css";
-import { getOrderDetailsById, IMAGE_URL } from "../../services/ApiService";
+import React, { useState, useEffect } from "react"; // Import React and hooks
+import { Link, useParams } from "react-router-dom"; // Import Link for navigation and useParams to get route parameters
+import "../../assets/styles/Orders/OrderDetails.css"; // Import CSS for styling
+import { getOrderDetailsById, IMAGE_URL } from "../../services/ApiService"; // Import API service functions and image URL constant
 
 const OrderDetails = () => {
-	const { orderId } = useParams();
-	const [order, setOrder] = useState(null);
-	const [isLoading, setIsLoading] = useState(false);
+	const { orderId } = useParams(); // Get the orderId from route parameters
+	const [order, setOrder] = useState(null); // State to store order details
+	const [isLoading, setIsLoading] = useState(false); // State to manage loading status
 
 	useEffect(() => {
 		const fetchOrderDetails = async () => {
-			setIsLoading(true);
+			setIsLoading(true); // Set loading state to true before fetching data
 			try {
-				const response = await getOrderDetailsById(orderId);
-
-				setOrder(response.data);
+				const response = await getOrderDetailsById(orderId); // Fetch order details by ID
+				setOrder(response.data); // Set the fetched order details to state
 			} catch (error) {
-				console.error("Error fetching order details:", error);
+				console.error("Error fetching order details:", error); // Log error if fetching fails
 			} finally {
-				setIsLoading(false);
+				setIsLoading(false); // Set loading state to false after fetching data
 			}
 		};
-		fetchOrderDetails();
-	}, [orderId]); // Re-fetch on orderId change
+		fetchOrderDetails(); // Call function to fetch order details
+	}, [orderId]); // Dependency array ensures re-fetching when orderId changes
 
 	return (
 		<div className="order-details-page">
-			<h2>OrderId: #{orderId}</h2>
+			<h2>OrderId: #{orderId}</h2> {/* Display the order ID */}
 			{isLoading ? (
-				<h3>Loading order details...</h3>
+				<h3>Loading order details...</h3> // Display loading message
 			) : order ? (
 				<>
-					<p>Date: {new Date(order.created_at).toLocaleString()}</p>
-					<p>Total: ₹{order.total_price}</p>
-					<p>Status: {order.order_status}</p>
-
+					<p>Date: {new Date(order.created_at).toLocaleString()}</p>{" "}
+					{/* Display order date */}
+					<p>Total: ₹{order.total_price}</p> {/* Display total price */}
+					<p>Status: {order.order_status}</p> {/* Display order status */}
 					<h3>Items in this Order:</h3>
 					<div className="order-items">
 						{order.cart_items.map((item) => (
@@ -50,19 +49,19 @@ const OrderDetails = () => {
 									/>
 								</Link>
 								<div className="item-details">
-									<h4>{item.name}</h4>
-									<p>Price: ₹{item.price}</p>
-									<p>Quantity: {item.quantity}</p>
+									<h4>{item.name}</h4> {/* Display item name */}
+									<p>Price: ₹{item.price}</p> {/* Display item price */}
+									<p>Quantity: {item.quantity}</p> {/* Display item quantity */}
 								</div>
 							</div>
 						))}
 					</div>
 				</>
 			) : (
-				<p>Order details not found.</p>
+				<p>Order details not found.</p> // Message if no order details are found
 			)}
 		</div>
 	);
 };
 
-export default OrderDetails;
+export default OrderDetails; // Export the OrderDetails component

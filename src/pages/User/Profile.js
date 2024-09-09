@@ -6,34 +6,35 @@ import userDefault from "../../assets/images/user.png";
 import { getUserDetails, IMAGE_URL } from "../../services/ApiService";
 
 const Profile = () => {
-	const { logout } = useContext(AuthContext);
-	const navigate = useNavigate();
-	const [userInfo, setUserInfo] = useState({});
-	const [profilePic, setProfilePic] = useState("");
-	const [loading, setLoading] = useState(true);
+	const { logout } = useContext(AuthContext); // Get logout function from AuthContext
+	const navigate = useNavigate(); // Hook to programmatically navigate
+	const [userInfo, setUserInfo] = useState({}); // State to hold user details
+	const [profilePic, setProfilePic] = useState(""); // State to hold profile picture URL
+	const [loading, setLoading] = useState(true); // State to manage loading indicator
 
 	useEffect(() => {
+		// Fetch user details when the component mounts
 		const fetchUser = async () => {
 			try {
-				const user = await getUserDetails();
-				console.log("🚀 ~ fetchUser ~ user:", user);
-				setUserInfo(user.data);
-				setProfilePic(user.data.profile_pic || userDefault);
-				setLoading(false);
+				const user = await getUserDetails(); // Fetch user details from API
+				setUserInfo(user.data); // Set user details in state
+				setProfilePic(user.data.profile_pic || userDefault); // Set profile picture or default image
+				setLoading(false); // Hide loading indicator
 			} catch (error) {
-				console.error("Error fetching user details:", error);
-				navigate("/login");
+				navigate("/login"); // Redirect to login page if there's an error
 			}
 		};
 
-		fetchUser();
-	}, [navigate]);
+		fetchUser(); // Call fetchUser function
+	}, [navigate]); // Dependency array includes navigate to avoid warnings
 
+	// Handle user logout
 	const handleLogout = () => {
-		logout();
-		navigate("/login");
+		logout(); // Call logout function from AuthContext
+		navigate("/login"); // Redirect to login page
 	};
 
+	// Profile options for navigation
 	const profileOptions = [
 		{ name: "My Orders", link: "/orders", icon: "🛒" },
 		{ name: "My Transactions", link: "/payments", icon: "💲" },
@@ -43,7 +44,8 @@ const Profile = () => {
 	if (loading)
 		return (
 			<div>
-				<h2>Loading...</h2>
+				<h2>Loading...</h2>{" "}
+				{/* Show loading message while data is being fetched */}
 			</div>
 		);
 
@@ -53,10 +55,11 @@ const Profile = () => {
 				<img
 					src={`${IMAGE_URL}${profilePic}`}
 					alt="User Avatar"
-					className="profile-avatar"
+					className="profile-avatar" // Profile picture styling
 				/>
 				<h2>
-					{userInfo?.first_name + " " + userInfo?.last_name || "John Doe"}
+					{userInfo?.first_name + " " + userInfo?.last_name || "User Name"}
+					{/* Display user name or default text */}
 				</h2>
 
 				<div className="profile-page">

@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useMemo } from "react";
 import AuthService from "../services/AuthService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -10,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 	);
 
 	useEffect(() => {
-		// Check authentication status on component mount
+		// Update authentication status on component mount
 		setIsAuthenticated(AuthService.isAuthenticated());
 	}, []);
 
@@ -20,8 +21,7 @@ export const AuthProvider = ({ children }) => {
 			setIsAuthenticated(true);
 		} catch (error) {
 			console.error("Login failed:", error);
-			toast.error(error);
-			// Handle login error, e.g., show a toast or alert
+			toast.error("Login failed. Please try again."); // Show error toast
 		}
 	};
 
@@ -31,8 +31,7 @@ export const AuthProvider = ({ children }) => {
 			setIsAuthenticated(false);
 		} catch (error) {
 			console.error("Logout failed:", error);
-			toast.error(error);
-			// Handle logout error, e.g., show a toast or alert
+			toast.error("Logout failed. Please try again."); // Show error toast
 		}
 	};
 

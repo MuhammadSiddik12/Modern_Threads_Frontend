@@ -9,75 +9,85 @@ import banner2 from "../../assets/images/banner2.png";
 import { getAllProducts } from "../../services/ApiService";
 
 function ProductList() {
-	const [products, setProduct] = useState([]);
-	const [products2, setProduct2] = useState([]);
+	const [firstSetProducts, setFirstSetProducts] = useState([]); // Products for the first section
+	const [secondSetProducts, setSecondSetProducts] = useState([]); // Products for the second section
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		const loadCategories = async () => {
+		const loadProducts = async () => {
 			try {
-				let user_id = "";
 				const user = localStorage.getItem("user");
+				let user_id = "";
 
 				if (user) {
-					console.log("🚀 ~ loadCategories ~ user:", user);
 					const data = JSON.parse(user);
 					user_id = data ? data.user_id : "";
 				}
-				const data = await getAllProducts(1, 12, "", user_id);
-				const data2 = await getAllProducts(2, 12, "", user_id);
-				setProduct(data.data); // Set the fetched categories
-				setProduct2(data2.data);
+
+				const firstPageProducts = await getAllProducts(1, 12, "", user_id);
+				const secondPageProducts = await getAllProducts(2, 12, "", user_id);
+
+				setFirstSetProducts(firstPageProducts.data);
+				setSecondSetProducts(secondPageProducts.data);
 			} catch (err) {
-				console.log("🚀 ~ loadCategories ~ err:", err);
-				setError("Failed to load products");
+				setError("Failed to load products. Please try again later.");
 			} finally {
 				setLoading(false);
 			}
 		};
 
-		loadCategories(); // Fetch categories on component mount
-	}, []); // Empty dependency array means this runs once on mount
+		loadProducts();
+	}, []);
 
-	if (loading)
+	if (loading) {
 		return (
-			<div>
+			<div className="loading-container">
 				<h2>Loading...</h2>
 			</div>
 		);
-	if (error) return <div>{error}</div>;
+	}
+
+	if (error) {
+		return (
+			<div className="error-container">
+				<h2>{error}</h2>
+			</div>
+		);
+	}
 
 	return (
 		<>
-			{/* Display the categories component */}
 			<Categories />
 
-			{/* Display the first banner */}
 			<Banner bannerImg={banner0} />
 
-			{/* Display the first set of products in a grid */}
 			<div className="product-grid">
-				{products.map((product) => (
-					<ProductCard key={product.product_id} product={product} />
-				))}
-			</div>
-
-			{/* Display the second banner */}
-			<Banner bannerImg={banner2} />
-
-			{/* Display the second set of products in a grid */}
-			<div className="product-grid">
-				{products2.map((product) =>
-					product.product_images.length ? (
+				{firstSetProducts.length > 0 ? (
+					firstSetProducts.map((product) => (
 						<ProductCard key={product.product_id} product={product} />
-					) : (
-						""
-					)
+					))
+				) : (
+					<p>No products available</p>
 				)}
 			</div>
 
-			{/* Display the third banner */}
+			<Banner bannerImg={banner2} />
+
+			<div className="product-grid">
+				{secondSetProducts.length > 0 ? (
+					secondSetProducts.map((product) =>
+						product.product_images.length ? (
+							<ProductCard key={product.product_id} product={product} />
+						) : (
+							<p key={product.product_id}>No images available</p>
+						)
+					)
+				) : (
+					<p>No products available</p>
+				)}
+			</div>
+
 			<Banner bannerImg={banner1} />
 		</>
 	);

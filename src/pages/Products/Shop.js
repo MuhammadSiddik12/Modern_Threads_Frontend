@@ -10,22 +10,23 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function Shop() {
-	const { categoryId } = useParams();
-	const navigate = useNavigate();
-	const location = useLocation();
+	const { categoryId } = useParams(); // Get category ID from URL parameters
+	const navigate = useNavigate(); // Hook for programmatic navigation
+	const location = useLocation(); // Hook for accessing location object
 
-	const [products, setProducts] = useState([]);
-	const [category, setCategory] = useState("All");
-	const [search, setSearch] = useState("");
-	const [categories, setCategories] = useState([]);
-	const [sort, setSort] = useState("none");
-	const [currentPage, setCurrentPage] = useState(0);
-	const [totalCount, setTotalCount] = useState(0);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-	const itemsPerPage = 9;
+	const [products, setProducts] = useState([]); // State for storing products
+	const [category, setCategory] = useState("All"); // State for selected category
+	const [search, setSearch] = useState(""); // State for search query
+	const [categories, setCategories] = useState([]); // State for storing categories
+	const [sort, setSort] = useState("none"); // State for sorting preference
+	const [currentPage, setCurrentPage] = useState(0); // State for current page
+	const [totalCount, setTotalCount] = useState(0); // State for total count of products
+	const [loading, setLoading] = useState(true); // State for loading indicator
+	const [error, setError] = useState(null); // State for error handling
+	const itemsPerPage = 9; // Number of items per page
 
 	useEffect(() => {
+		// Function to fetch categories and products
 		const fetchCategoriesAndProducts = async () => {
 			try {
 				let user_id = "";
@@ -36,6 +37,7 @@ function Shop() {
 					user_id = data ? data.user_id : "";
 				}
 
+				// Fetch all categories
 				const categoriesData = await getAllCategories();
 				const allCategories = [
 					{ category_name: "All", category_id: "All" },
@@ -43,6 +45,7 @@ function Shop() {
 				];
 				setCategories(allCategories);
 
+				// Set selected category based on URL parameter
 				if (categoryId) {
 					const selectedCategory = allCategories.find(
 						(cat) => cat.category_id === categoryId
@@ -54,17 +57,14 @@ function Shop() {
 
 				let productsData;
 				if (location.state?.searchResults) {
-					// Use search results from header
+					// Use search results from location state
 					productsData = {
 						data: location.state.searchResults,
 						total_count: location.state.total_count,
 					};
-					console.log(
-						"🚀 ~ fetchCategoriesAndProducts ~ productsData:",
-						productsData
-					);
 					setSearch(location.state.searchQuery);
 				} else if (categoryId && categoryId !== "All") {
+					// Fetch products by selected category
 					productsData = await getAllProductsByCategory(
 						categoryId,
 						currentPage + 1,
@@ -84,6 +84,7 @@ function Shop() {
 						);
 					}
 				} else {
+					// Fetch all products
 					productsData = await getAllProducts(
 						currentPage + 1,
 						itemsPerPage,
@@ -92,17 +93,17 @@ function Shop() {
 					);
 				}
 
-				setProducts(productsData.data);
-				setTotalCount(productsData.total_count);
+				setProducts(productsData.data); // Set fetched products
+				setTotalCount(productsData.total_count); // Set total count of products
 			} catch (error) {
-				setError(error.message);
+				setError(error.message); // Handle errors
 			} finally {
-				setLoading(false);
+				setLoading(false); // Reset loading state
 			}
 		};
 
 		setLoading(true);
-		fetchCategoriesAndProducts();
+		fetchCategoriesAndProducts(); // Call fetch function
 	}, [currentPage, category, categoryId, location.state?.searchResults]);
 
 	// Handle category change
@@ -115,28 +116,30 @@ function Shop() {
 
 		if (selectedCategory) {
 			setCategory(selectedCategory.category_name);
-			navigate(`/shopbycategory/${selectedCategoryId}`);
+			navigate(`/shopbycategory/${selectedCategoryId}`); // Navigate to selected category
 		}
-		setCurrentPage(0);
+		setCurrentPage(0); // Reset current page on category change
 	};
 
 	// Handle sort change
 	const handleSortChange = (e) => {
 		setSort(e.target.value);
-		setCurrentPage(0);
+		setCurrentPage(0); // Reset current page on sort change
 	};
 
+	// Sort products based on selected sort option
 	const sortedProducts = [...products].sort((a, b) => {
 		if (sort === "asc") return a.price - b.price;
 		if (sort === "desc") return b.price - a.price;
 		return 0;
 	});
 
-	// Handle page change
+	// Handle page change for pagination
 	const handlePageChange = (selectedPage) => {
 		setCurrentPage(selectedPage.selected);
 	};
 
+	// Display loading message while data is being fetched
 	if (loading) {
 		return (
 			<div>
@@ -145,6 +148,7 @@ function Shop() {
 		);
 	}
 
+	// Display error message if there is an error
 	if (error) {
 		return <div>Error: {error}</div>;
 	}
@@ -190,8 +194,8 @@ function Shop() {
 				</div>
 			)}
 			<ReactPaginate
-				pageCount={totalCount}
-				onPageChange={handlePageChange}
+				pageCount={totalCount} // Calculate total pages
+				onPageChange={handlePageChange} // Handle page change
 				containerClassName={"pagination"}
 				activeClassName={"active"}
 			/>
