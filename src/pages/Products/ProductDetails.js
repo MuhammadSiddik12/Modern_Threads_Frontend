@@ -62,7 +62,7 @@ const ProductDetails = () => {
 		} catch (error) {
 			setButtonText("Add to Cart"); // Reset button text on error
 			setIsButtonDisabled(false); // Enable button on error
-			toast.error("Failed to add to cart. Please try again."); // Display error message
+			toast.error(error); // Display error message
 		}
 	};
 

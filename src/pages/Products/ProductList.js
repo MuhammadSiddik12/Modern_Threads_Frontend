@@ -75,17 +75,15 @@ function ProductList() {
 			<Banner bannerImg={banner2} />
 
 			<div className="product-grid">
-				{secondSetProducts.length > 0 ? (
-					secondSetProducts.map((product) =>
-						product.product_images.length ? (
-							<ProductCard key={product.product_id} product={product} />
-						) : (
-							<p key={product.product_id}>No images available</p>
-						)
-					)
-				) : (
-					<p>No products available</p>
-				)}
+				{secondSetProducts.length > 0
+					? secondSetProducts.map((product) =>
+							product.product_images.length ? (
+								<ProductCard key={product.product_id} product={product} />
+							) : (
+								<p key={product.product_id}>No images available</p>
+							)
+					  )
+					: ""}
 			</div>
 
 			<Banner bannerImg={banner1} />
