@@ -1,134 +1,152 @@
+/* Footer styling */
 .footer {
-	background-color: #e1e6e2;
-	color: #1c1c1c;
-	padding: 20px 0;
-	text-align: center;
-	margin-top: 20px;
-	font-weight: bold;
-	font-family: "eurostile, sans-serif";
+	background-color: #e1e6e2; /* Background color */
+	color: #1c1c1c; /* Text color */
+	padding: 20px 0; /* Padding top and bottom */
+	text-align: center; /* Center-align text */
+	margin-top: 20px; /* Space above the footer */
+	font-weight: bold; /* Bold text */
+	font-family: "eurostile, sans-serif"; /* Font family */
 }
 
+/* Container for footer content */
 .footer-content {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	padding: 0 20px;
+	display: flex; /* Flexbox layout */
+	justify-content: space-around; /* Space items evenly */
+	flex-wrap: wrap; /* Allow wrapping of items */
+	padding: 0 20px; /* Padding left and right */
 }
 
+/* Styling for individual footer sections */
 .footer-section {
-	flex: 1 1 200px;
-	padding: 20px;
-	min-width: 200px;
+	flex: 1 1 200px; /* Flexible basis with min-width */
+	padding: 20px; /* Padding */
+	min-width: 200px; /* Minimum width */
 }
 
+/* Heading styles within footer sections */
 .footer-section h2,
 .footer-section h3 {
-	margin: 20px 0;
+	margin: 20px 0; /* Margin top and bottom */
 }
 
+/* Text styling within footer sections */
 .footer-section p,
 .footer-section ul,
 .footer-section a {
-	color: #1c1c1c;
-	font-size: 14px;
-	line-height: 24px;
+	color: #1c1c1c; /* Text color */
+	font-size: 14px; /* Font size */
+	line-height: 24px; /* Line height */
 }
 
+/* Styling for unordered lists within footer sections */
 .footer-section ul {
-	list-style: none;
-	padding: 0;
+	list-style: none; /* Remove default list styling */
+	padding: 0; /* Remove padding */
 }
 
+/* Styling for list items within unordered lists */
 .footer-section ul li {
-	margin-bottom: 10px;
+	margin-bottom: 10px; /* Space below each list item */
 }
 
+/* Styling for links within unordered lists */
 .footer-section ul li a {
-	color: #1c1c1c;
-	text-decoration: none;
+	color: #1c1c1c; /* Text color */
+	text-decoration: none; /* Remove underline */
 }
 
+/* Hover effect for links within unordered lists */
 .footer-section ul li a:hover {
-	color: #515253;
+	color: #515253; /* Change color on hover */
 }
 
+/* Social icons container styling */
 .social-icons {
-	display: flex;
-	gap: 10px;
-	justify-content: center;
+	display: flex; /* Flexbox layout */
+	gap: 10px; /* Space between icons */
+	justify-content: center; /* Center-align items */
 }
 
+/* Styling for social icons links */
 .social-icons a {
-	color: #1c1c1c;
-	font-size: 16px;
-	text-decoration: none;
-	display: flex;
-	align-items: center;
+	color: #1c1c1c; /* Text color */
+	font-size: 16px; /* Font size */
+	text-decoration: none; /* Remove underline */
+	display: flex; /* Flexbox layout */
+	align-items: center; /* Center-align items vertically */
 }
 
+/* Styling for icons within social icons links */
 .social-icons a i {
-	margin-right: 8px;
-	font-size: 20px;
+	margin-right: 8px; /* Space between icon and text */
+	font-size: 20px; /* Font size for icons */
 }
 
+/* Hover effect for social icons links */
 .social-icons a:hover {
-	color: #515253;
+	color: #515253; /* Change color on hover */
 }
 
+/* Newsletter form container styling */
 .newsletter-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	display: flex; /* Flexbox layout */
+	flex-direction: column; /* Stack items vertically */
+	align-items: center; /* Center-align items horizontally */
 }
 
+/* Input styling within newsletter form */
 .newsletter input {
-	padding: 10px;
-	width: 100%;
-	max-width: 300px;
-	border: none;
-	border-radius: 5px;
-	margin-bottom: 10px;
+	padding: 10px; /* Padding */
+	width: 100%; /* Full width */
+	max-width: 300px; /* Maximum width */
+	border: none; /* Remove border */
+	border-radius: 5px; /* Rounded corners */
+	margin-bottom: 10px; /* Space below input */
 }
 
+/* Button styling within newsletter form */
 .newsletter button {
-	padding: 10px;
-	background-color: #f90;
-	border: none;
-	color: #fff;
-	border-radius: 5px;
-	cursor: pointer;
-	width: 100%;
-	max-width: 300px;
+	padding: 10px; /* Padding */
+	background-color: #f90; /* Background color */
+	border: none; /* Remove border */
+	color: #fff; /* Text color */
+	border-radius: 5px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor */
+	width: 100%; /* Full width */
+	max-width: 300px; /* Maximum width */
 }
 
+/* Styling for footer bottom section */
 .footer-bottom {
-	text-align: center;
-	margin-top: 20px;
-	border-top: 1px solid #444;
-	padding-top: 10px;
-	font-size: 12px;
+	text-align: center; /* Center-align text */
+	margin-top: 20px; /* Space above footer bottom */
+	border-top: 1px solid #444; /* Top border */
+	padding-top: 10px; /* Padding top */
+	font-size: 12px; /* Font size */
 }
 
-/* Responsive Styles */
+/* Responsive styles for tablets */
 @media (max-width: 768px) {
 	.footer-content {
-		padding: 0 10px;
+		padding: 0 10px; /* Adjust padding */
 	}
 
 	.footer-section {
-		flex: 1 1 100%;
-		padding: 10px;
-		min-width: auto;
+		flex: 1 1 100%; /* Full width sections */
+		padding: 10px; /* Adjust padding */
+		min-width: auto; /* Remove min-width constraint */
 	}
 }
 
+/* Responsive styles for phones */
 @media (max-width: 480px) {
 	.footer-bottom {
-		font-size: 10px;
+		font-size: 10px; /* Smaller font size */
 	}
 
 	.footer-content {
-		flex-direction: column;
-		align-items: center;
+		flex-direction: column; /* Stack sections vertically */
+		align-items: center; /* Center-align items horizontally */
 	}
 }

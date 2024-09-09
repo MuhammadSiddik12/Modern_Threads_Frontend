@@ -1,145 +1,156 @@
-/* CartPage.css */
-
+/* Styles for Cart Page */
 .cart-page {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 20px;
-	font-family: "eurostile, sans-serif"; /* Font family for text */
+	max-width: 1200px; /* Max width of the cart page */
+	margin: 0 auto; /* Center horizontally */
+	padding: 20px; /* Padding around content */
+	font-family: "eurostile, sans-serif"; /* Font family */
 }
 
+/* Header styling */
 h2 {
-	font-size: 32px;
-	margin-bottom: 20px;
-	text-align: center;
+	font-size: 32px; /* Font size */
+	margin-bottom: 20px; /* Space below header */
+	text-align: center; /* Center-align header text */
 }
 
+/* Cart content layout */
 .cart-content {
-	display: flex;
-	gap: 20px;
-	flex-wrap: wrap;
+	display: flex; /* Flexbox layout */
+	gap: 20px; /* Space between items */
+	flex-wrap: wrap; /* Wrap items */
 }
 
+/* Cart items section */
 .cart-items {
-	flex: 2;
+	flex: 2; /* Flex grow for cart items */
 }
 
+/* Individual cart item styling */
 .cart-item {
-	display: flex;
-	padding: 20px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	margin-bottom: 20px;
+	display: flex; /* Flexbox layout */
+	padding: 20px; /* Padding inside item */
+	border: 1px solid #ddd; /* Light border */
+	border-radius: 5px; /* Rounded corners */
+	margin-bottom: 20px; /* Space below item */
 }
 
+/* Cart item image styling */
 .cart-item-image {
-	width: 100px;
-	height: 100px;
-	object-fit: cover;
-	margin-right: 20px;
+	width: 100px; /* Image width */
+	height: 100px; /* Image height */
+	object-fit: cover; /* Cover the image area */
+	margin-right: 20px; /* Space to the right of the image */
 }
 
+/* Cart item details section */
 .cart-item-details {
-	flex-grow: 1;
+	flex-grow: 1; /* Allow details to expand */
 }
 
 .cart-item-details h3 {
-	font-size: 20px;
-	margin-bottom: 10px;
+	font-size: 20px; /* Font size for item title */
+	margin-bottom: 10px; /* Space below title */
 }
 
 .cart-item-details p {
-	margin: 5px 0;
+	margin: 5px 0; /* Space above and below paragraphs */
 }
 
+/* Remove button styling */
 .remove-button {
-	background-color: #ff4b5c;
-	color: white;
-	border: none;
-	padding: 8px 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	margin-top: 10px;
+	background-color: #ff4b5c; /* Red background */
+	color: white; /* White text */
+	border: none; /* Remove border */
+	padding: 8px 16px; /* Padding inside button */
+	border-radius: 5px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor */
+	margin-top: 10px; /* Space above button */
 }
 
 .remove-button:hover {
-	background-color: #e04352;
+	background-color: #e04352; /* Darker red on hover */
 }
 
+/* Cart summary section */
 .cart-summary {
-	flex: 1;
-	padding: 20px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
+	flex: 1; /* Flex grow for summary */
+	padding: 20px; /* Padding inside summary */
+	border: 1px solid #ddd; /* Light border */
+	border-radius: 5px; /* Rounded corners */
 }
 
 .cart-summary h3 {
-	font-size: 24px;
-	margin-bottom: 20px;
+	font-size: 24px; /* Font size for summary header */
+	margin-bottom: 20px; /* Space below header */
 }
 
 .cart-summary p {
-	font-size: 18px;
-	margin-bottom: 20px;
+	font-size: 18px; /* Font size for summary text */
+	margin-bottom: 20px; /* Space below text */
 }
 
+/* Checkout button styling */
 .checkout-button {
-	background-color: #1c1c1c;
-	color: white;
-	border: none;
-	padding: 12px 20px;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 16px;
-	width: 100%;
+	background-color: #1c1c1c; /* Dark background */
+	color: white; /* White text */
+	border: none; /* Remove border */
+	padding: 12px 20px; /* Padding inside button */
+	border-radius: 5px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor */
+	font-size: 16px; /* Font size */
+	width: 100%; /* Full width button */
 }
 
 .checkout-button:hover {
-	background-color: #333333;
+	background-color: #333333; /* Darker background on hover */
 }
 
+/* Cancel checkout button styling */
 .cancel-checkout-button {
-	margin-top: 12px;
-	background-color: rgb(209, 181, 181);
-	color: black;
-	border: none;
-	padding: 12px 20px;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 16px;
-	width: 100%;
+	margin-top: 12px; /* Space above button */
+	background-color: rgb(209, 181, 181); /* Light background */
+	color: black; /* Black text */
+	border: none; /* Remove border */
+	padding: 12px 20px; /* Padding inside button */
+	border-radius: 5px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor */
+	font-size: 16px; /* Font size */
+	width: 100%; /* Full width button */
 }
 
 .cancel-checkout-button:hover {
-	background-color: #ff4b5c;
+	background-color: #ff4b5c; /* Red background on hover */
 }
 
+/* Cart item link styling */
 .cart-item-link {
-	text-decoration: none;
-	color: inherit;
+	text-decoration: none; /* Remove underline */
+	color: inherit; /* Inherit text color */
 }
 
 .cart-item-link:hover {
-	color: #333;
+	color: #333; /* Dark color on hover */
 }
 
+/* Empty cart message styling */
 .empty-cart-container {
-	text-align: center;
-	font-size: 18px;
+	text-align: center; /* Center-align text */
+	font-size: 18px; /* Font size */
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
 	.cart-content {
-		flex-direction: column;
+		flex-direction: column; /* Stack items vertically */
 	}
 
 	h2 {
-		font-size: 32px;
-		margin-top: 30%;
-		text-align: center;
+		font-size: 32px; /* Adjust font size */
+		margin-top: 30%; /* Adjust top margin */
+		text-align: center; /* Center-align text */
 	}
 
 	.cart-summary {
-		margin-top: 22px;
+		margin-top: 22px; /* Space above summary */
 	}
 }

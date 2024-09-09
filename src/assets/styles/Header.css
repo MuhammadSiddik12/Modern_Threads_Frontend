@@ -1,133 +1,147 @@
+/* Reset margin and padding for all elements and include padding/borders in width/height calculations */
 * {
-	box-sizing: border-box; /* Include padding and borders in width/height */
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
 
+/* Prevent horizontal scrolling */
 html,
 body {
-	overflow-x: hidden; /* Prevent horizontal scrolling */
+	overflow-x: hidden;
 }
 
+/* Header styling */
 .header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 18px 20px;
-	background-color: #e1e6e2;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 1000;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	display: flex; /* Flexbox layout for positioning items */
+	justify-content: space-between; /* Space out items */
+	align-items: center; /* Center items vertically */
+	padding: 18px 20px; /* Padding around the header */
+	background-color: #e1e6e2; /* Background color */
+	position: fixed; /* Fixed positioning at the top */
+	top: 0; /* Align to the top */
+	left: 0; /* Align to the left */
+	width: 100%; /* Full width */
+	z-index: 1000; /* High z-index to stay on top of other elements */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
+/* Styling for the header logo */
 .header-logo {
-	width: 270px;
+	width: 270px; /* Fixed width for logo */
 }
 
+/* Navigation styling */
 .header-nav {
-	display: flex;
-	gap: 30px;
+	display: flex; /* Flexbox layout */
+	gap: 30px; /* Space between links */
 }
 
+/* Navigation link styling */
 .header-nav a {
-	color: #1c1c1c;
-	text-decoration: none;
-	font-size: 20px;
-	cursor: pointer;
-	font-weight: bold;
-	transition: color 0.3s ease;
-	font-family: "eurostile, sans-serif";
+	color: #1c1c1c; /* Text color */
+	text-decoration: none; /* Remove underline */
+	font-size: 20px; /* Font size */
+	cursor: pointer; /* Pointer cursor on hover */
+	font-weight: bold; /* Bold text */
+	transition: color 0.3s ease; /* Smooth color transition */
+	font-family: "eurostile, sans-serif"; /* Font family */
 }
 
+/* Navigation link hover state */
 .header-nav a:hover {
-	color: #515253; /* Updated hover color */
-	transform: translateY(-1px);
+	color: #515253; /* Hover color */
+	transform: translateY(-1px); /* Slight lift effect */
 }
 
+/* Search bar styling */
 .header-search {
-	display: flex;
-	align-items: center;
-	background-color: white;
-	padding: 10px;
-	border-radius: 4px;
-	width: 100%;
-	max-width: 450px;
+	display: flex; /* Flexbox layout */
+	align-items: center; /* Center items vertically */
+	background-color: white; /* Background color */
+	padding: 10px; /* Padding */
+	border-radius: 4px; /* Rounded corners */
+	width: 100%; /* Full width */
+	max-width: 450px; /* Maximum width */
 }
 
+/* Search input styling */
 .header-search input {
-	border: none;
-	padding: 8px;
-	width: 100%;
-	outline: none;
-	font-size: 17px;
-	font-family: "eurostile, sans-serif";
+	border: none; /* Remove border */
+	padding: 8px; /* Padding */
+	width: 100%; /* Full width */
+	outline: none; /* Remove default outline */
+	font-size: 17px; /* Font size */
+	font-family: "eurostile, sans-serif"; /* Font family */
 }
 
+/* Search button styling */
 .header-search button {
-	background-color: #f90;
-	border: none;
-	padding: 9px 14px;
-	cursor: pointer;
-	font-size: 16px;
-	font-weight: bold;
-	color: #fff;
+	background-color: #f90; /* Background color */
+	border: none; /* Remove border */
+	padding: 9px 14px; /* Padding */
+	cursor: pointer; /* Pointer cursor */
+	font-size: 16px; /* Font size */
+	font-weight: bold; /* Bold text */
+	color: #fff; /* Text color */
 }
 
+/* Icon container styling */
 .header-icons {
-	display: flex;
-	gap: 20px;
-	align-items: center;
-	font-family: "eurostile, sans-serif";
-	font-size: 17px;
+	display: flex; /* Flexbox layout */
+	gap: 20px; /* Space between icons */
+	align-items: center; /* Center items vertically */
+	font-family: "eurostile, sans-serif"; /* Font family */
+	font-size: 17px; /* Font size */
 }
 
+/* Icon and container styling */
 .header-icons img,
 .icon-container img {
-	width: 27px;
-	height: 27px;
-	cursor: pointer;
+	width: 27px; /* Fixed width */
+	height: 27px; /* Fixed height */
+	cursor: pointer; /* Pointer cursor */
 }
 
+/* Link styling in icon container */
 .header-icons a,
 .icon-container a {
-	color: #1c1c1c;
-	text-decoration: none;
+	color: #1c1c1c; /* Text color */
+	text-decoration: none; /* Remove underline */
 }
 
+/* Icon container styling */
 .icon-container {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	font-size: 18px;
+	display: flex; /* Flexbox layout */
+	align-items: center; /* Center items vertically */
+	gap: 8px; /* Space between icon and text */
+	font-size: 18px; /* Font size */
 }
 
-/* Responsive Styles */
+/* Responsive styles for tablets */
 @media (max-width: 768px) {
 	.header {
-		flex-direction: column;
-		align-items: center;
-		padding: 18px 10px;
+		flex-direction: column; /* Stack items vertically */
+		align-items: center; /* Center items horizontally */
+		padding: 18px 10px; /* Adjust padding */
 	}
-	
 
 	.header-nav {
-		margin-top: 5px;
+		margin-top: 5px; /* Space above the navigation links */
 	}
 
 	.header-search,
 	.header-icons {
-		width: 100%;
-		margin-top: 10px;
-		gap: 15px;
-		justify-content: space-evenly;
+		width: 100%; /* Full width */
+		margin-top: 10px; /* Space above */
+		gap: 15px; /* Space between items */
+		justify-content: space-evenly; /* Distribute space evenly */
 	}
 }
 
+/* Responsive styles for phones */
 @media (max-width: 480px) {
 	.header {
-		padding: 18px 10px;
+		padding: 18px 10px; /* Adjust padding for smaller screens */
 	}
 }

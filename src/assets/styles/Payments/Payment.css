@@ -1,51 +1,56 @@
-/* Payment.css */
-
+/* Styles for Payment Page */
 .Payment {
-	padding: 40px;
-	margin-left: 5%;
-	margin-right: 5%;
+	padding: 40px; /* Padding around the payment page content */
+	margin-left: 5%; /* Margin on the left */
+	margin-right: 5%; /* Margin on the right */
 }
 
+/* Payment page heading */
 .Payment h1 {
-	font-size: 2rem;
-	margin-bottom: 20px;
+	font-size: 2rem; /* Font size for heading */
+	margin-bottom: 20px; /* Space below heading */
 }
 
+/* Payment list styling */
 .Payment ul {
-	list-style: none;
-	padding: 0;
+	list-style: none; /* Remove bullet points from list */
+	padding: 0; /* Remove padding */
 }
 
+/* Payment list item styling */
 .Payment li {
-	border-bottom: 1px solid #ddd;
-	padding: 10px 0;
+	border-bottom: 1px solid #ddd; /* Bottom border for list items */
+	padding: 10px 0; /* Padding inside list items */
 }
 
+/* Payment link styling */
 .Payment a {
-	text-decoration: none;
-	color: #007bff;
+	text-decoration: none; /* Remove underline from links */
+	color: #007bff; /* Link color */
 }
 
+/* Hover effect for payment links */
 .Payment a:hover {
-	text-decoration: underline;
+	text-decoration: underline; /* Underline on hover */
 }
 
+/* Loading and error messages styling */
 .loading,
 .error {
-	font-size: 1.5rem;
-	color: #111010; /* Red color for errors */
-	text-align: center;
-	margin-top: 20px;
+	font-size: 1.5rem; /* Font size for messages */
+	color: #111010; /* Color for error text */
+	text-align: center; /* Center-align text */
+	margin-top: 20px; /* Space above messages */
 }
 
-
+/* Responsive styles for smaller screens */
 @media (max-width: 600px) {
 	.Payment h1 {
-		margin-top: 40%;
-		font-size: 1.5rem;
+		margin-top: 40%; /* Adjust top margin for smaller screens */
+		font-size: 1.5rem; /* Smaller font size for heading */
 	}
 
 	.Payment li {
-		padding: 5px 0;
+		padding: 5px 0; /* Reduced padding inside list items */
 	}
 }

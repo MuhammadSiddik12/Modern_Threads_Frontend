@@ -1,64 +1,71 @@
-/* PaymentDetailsPage.css */
-
+/* Styles for Payment Details Page */
 .PaymentDetails {
-	padding: 30px;
+	padding: 30px; /* Padding around the content */
 }
 
+/* Page heading */
 h1 {
-	font-size: 2rem;
-	margin-bottom: 20px;
+	font-size: 2rem; /* Font size for heading */
+	margin-bottom: 20px; /* Space below heading */
 }
 
+/* Transaction details section */
 .transaction-details {
-	border: 1px solid #ddd;
-	padding: 15px;
-	border-radius: 8px;
-	background-color: #f9f9f9;
+	border: 1px solid #ddd; /* Border around the section */
+	padding: 15px; /* Padding inside the section */
+	border-radius: 8px; /* Rounded corners */
+	background-color: #f9f9f9; /* Light background color */
 }
 
+/* Paragraph styling within PaymentDetails */
 .PaymentDetails p {
-	margin: 10px 0;
-	font-size: 1rem;
+	margin: 10px 0; /* Vertical margin for paragraphs */
+	font-size: 1rem; /* Font size */
 }
 
+/* Subheading styling within PaymentDetails */
 .PaymentDetails h2 {
-	margin-top: 20px;
-	font-size: 1.5rem;
+	margin-top: 20px; /* Space above subheading */
+	font-size: 1.5rem; /* Font size for subheading */
 }
 
+/* List styling within PaymentDetails */
 .PaymentDetails ul {
-	list-style: none;
-	padding: 0;
+	list-style: none; /* Remove bullet points */
+	padding: 0; /* Remove padding */
 }
 
+/* List item styling */
 .PaymentDetails li {
-	border-bottom: 1px solid #ddd;
-	padding: 10px 0;
-	font-size: 1rem;
+	border-bottom: 1px solid #ddd; /* Bottom border for list items */
+	padding: 10px 0; /* Padding inside list items */
+	font-size: 1rem; /* Font size for list items */
 }
 
+/* Loading and error messages styling */
 .loading,
 .error {
-	font-size: 1.5rem;
-	color: #201e1e; /* Red color for errors */
-	text-align: center;
-	margin-top: 20px;
+	font-size: 1.5rem; /* Font size for messages */
+	color: #201e1e; /* Error color */
+	text-align: center; /* Center-align text */
+	margin-top: 20px; /* Space above messages */
 }
 
+/* Responsive styles for smaller screens */
 @media (max-width: 600px) {
 	.PaymentDetails {
-		margin-top: 30%;
+		margin-top: 30%; /* Adjust top margin */
 	}
 
 	h1 {
-		font-size: 1.5rem;
+		font-size: 1.5rem; /* Smaller font size for heading */
 	}
 
 	.transaction-details {
-		padding: 10px;
+		padding: 10px; /* Reduced padding inside section */
 	}
 
-	li {
-		padding: 5px 0;
+	.PaymentDetails li {
+		padding: 5px 0; /* Reduced padding inside list items */
 	}
 }

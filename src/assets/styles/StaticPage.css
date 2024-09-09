@@ -1,62 +1,69 @@
+/* Base styling for pages: Terms and Conditions, Privacy Policy, About Us */
 .terms-and-conditions,
 .privacy-policy,
 .about-us {
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 20px;
-	font-family: Arial, sans-serif;
+	max-width: 800px; /* Maximum width for readability */
+	margin: 0 auto; /* Center the content horizontally */
+	padding: 20px; /* Padding around the content */
 }
 
+/* Heading styles for h1 elements in the above sections */
 .terms-and-conditions,
 .privacy-policy,
 .about-us h1 {
-	font-size: 2em;
-	margin-bottom: 20px;
-	color: #333;
+	font-size: 2em; /* Font size for main headings */
+	margin-bottom: 20px; /* Space below the heading */
+	color: #333; /* Dark color for better readability */
 }
 
+/* Heading styles for h2 elements in the above sections */
 .terms-and-conditions,
 .privacy-policy,
 .about-us h2 {
-	font-size: 1.5em;
-	margin-top: 20px;
-	color: #555;
+	font-size: 1.5em; /* Font size for sub-headings */
+	margin-top: 20px; /* Space above the heading */
+	color: #555; /* Slightly lighter color */
 }
 
+/* Paragraph styles for text in the above sections */
 .terms-and-conditions,
 .privacy-policy,
 .about-us p {
-	font-size: 1em;
-	line-height: 1.6;
-	color: #666;
+	font-size: 1em; /* Font size for paragraph text */
+	line-height: 1.6; /* Line height for better readability */
+	color: #666; /* Lighter color for text */
 }
 
+/* Styles for unordered lists in the above sections */
 .terms-and-conditions,
 .privacy-policy,
 .about-us ul {
-	margin-top: 10px;
-	margin-bottom: 20px;
+	margin-top: 10px; /* Space above the list */
+	margin-bottom: 20px; /* Space below the list */
 }
 
+/* Styles for list items in unordered lists */
 .terms-and-conditions,
 .privacy-policy,
 .about-us ul li {
-	margin-bottom: 10px;
-	color: #666;
+	margin-bottom: 10px; /* Space below each list item */
+	color: #666; /* Text color for list items */
 }
 
+/* Media query for screens with a max width of 768px (tablets) */
 @media (max-width: 768px) {
 	.terms-and-conditions,
 	.privacy-policy,
 	.about-us {
-		margin-top: 10%;
+		margin-top: 10%; /* Adjust top margin for smaller screens */
 	}
 }
 
+/* Media query for screens with a max width of 480px (phones) */
 @media (max-width: 480px) {
 	.terms-and-conditions,
 	.privacy-policy,
 	.about-us {
-		margin-top: 30%;
+		margin-top: 30%; /* Adjust top margin further for smaller screens */
 	}
 }
