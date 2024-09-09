@@ -48,6 +48,5 @@ h2 {
 @media (max-width: 768px) {
 	.my-orders-page {
 		flex-direction: column;
-		margin-top: 28%;
 	}
 }

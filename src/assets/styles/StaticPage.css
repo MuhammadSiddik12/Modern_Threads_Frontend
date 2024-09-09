@@ -7,30 +7,40 @@
 	font-family: Arial, sans-serif;
 }
 
-h1 {
+.terms-and-conditions,
+.privacy-policy,
+.about-us h1 {
 	font-size: 2em;
 	margin-bottom: 20px;
 	color: #333;
 }
 
-h2 {
+.terms-and-conditions,
+.privacy-policy,
+.about-us h2 {
 	font-size: 1.5em;
 	margin-top: 20px;
 	color: #555;
 }
 
-p {
+.terms-and-conditions,
+.privacy-policy,
+.about-us p {
 	font-size: 1em;
 	line-height: 1.6;
 	color: #666;
 }
 
-ul {
+.terms-and-conditions,
+.privacy-policy,
+.about-us ul {
 	margin-top: 10px;
 	margin-bottom: 20px;
 }
 
-ul li {
+.terms-and-conditions,
+.privacy-policy,
+.about-us ul li {
 	margin-bottom: 10px;
 	color: #666;
 }

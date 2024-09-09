@@ -54,6 +54,5 @@ h3 {
 @media (max-width: 768px) {
 	.order-details-page {
 		flex-direction: column;
-		margin-top: 28%;
 	}
 }
