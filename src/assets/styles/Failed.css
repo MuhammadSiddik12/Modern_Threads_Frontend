@@ -1,0 +1,28 @@
+/* Save button styling */
+.failed {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.save-button-failed {
+	background-color: #d1593b; /* Green background */
+	color: white; /* White text */
+	padding: 10px; /* Padding inside button */
+	border: none; /* Remove border */
+	border-radius: 5px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor */
+	font-size: 16px; /* Font size */
+	margin-top: 20px;
+}
+
+/* Save button hover effect */
+.save-button-failed:hover {
+	background-color: #d1593b; /* Darker green on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+	.failed {
+		margin-top: 32%;
+	}
+}

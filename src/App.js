@@ -21,6 +21,8 @@ import PaymentDetails from "./pages/Payments/PaymentDetails.js";
 import AboutUs from "./components/AboutUs.js";
 import PrivacyPolicy from "./components/PrivacyPolicy.js";
 import TermsAndConditions from "./components/TermsAndConditions.js";
+import SuccessPage from "./components/Success.js";
+import FailedPage from "./components/Failed.js";
 
 function App() {
 	return (
@@ -40,6 +42,8 @@ function App() {
 					<Route path="/about" element={<AboutUs />} />
 					<Route path="/privacy" element={<PrivacyPolicy />} />
 					<Route path="/terms" element={<TermsAndConditions />} />
+					<Route path="/success/:paymentId" element={<SuccessPage />} />
+					<Route path="/failed/:paymentId" element={<FailedPage />} />
 					<Route
 						path="/profile"
 						element={

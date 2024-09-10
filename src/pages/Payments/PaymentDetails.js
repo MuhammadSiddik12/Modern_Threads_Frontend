@@ -50,6 +50,10 @@ const PaymentDetails = () => {
 						<strong>Total Amount:</strong> ₹{transaction.amount}{" "}
 						{/* Display total amount */}
 					</p>
+					<p>
+						<strong>Payment Status:</strong> ₹{transaction.payment_status}{" "}
+						{/* Display total amount */}
+					</p>
 					<h2>Items</h2>
 					<ul>
 						{transaction.cart_details.map((detail) => (
