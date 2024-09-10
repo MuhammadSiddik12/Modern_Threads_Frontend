@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/users";
-export const IMAGE_URL = "http://localhost:3001";
+const API_URL = "https://ignou-project-backend.onrender.com/users";
+export const IMAGE_URL = "https://ignou-project-backend.onrender.com";
 
 // Helper function to handle errors
 const handleError = (error) => {
