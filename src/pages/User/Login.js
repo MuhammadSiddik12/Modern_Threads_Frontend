@@ -15,6 +15,7 @@ const Login = () => {
 	const { login } = useContext(AuthContext); // Get login function from AuthContext
 
 	const handleSubmit = async (e) => {
+		e.preventDefault();
 		if (email && password) {
 			// Check if email and password are provided
 			setLoading(true); // Set loading to true when starting the login process
