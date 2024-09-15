@@ -18,6 +18,7 @@ const SignUp = () => {
 	const navigate = useNavigate(); // Hook to programmatically navigate
 
 	const handleSubmit = async (e) => {
+		e.preventDefault();
 		// Check if all required fields are filled
 		if (firstName && lastName && email && password) {
 			setLoading(true); // Show loading indicator
