@@ -69,7 +69,8 @@ function Shop() {
 						categoryId,
 						currentPage + 1,
 						itemsPerPage,
-						search
+						search,
+						user_id
 					);
 				} else if (category !== "All") {
 					const selectedCategory = allCategories.find(
@@ -80,7 +81,8 @@ function Shop() {
 							selectedCategory.category_id,
 							currentPage + 1,
 							itemsPerPage,
-							search
+							search,
+							user_id
 						);
 					}
 				} else {

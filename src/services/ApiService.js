@@ -88,10 +88,16 @@ export const getAllProducts = async (page, limit, search, user_id) => {
 	}
 };
 
-export const getAllProductsByCategory = async (id, page, limit, search) => {
+export const getAllProductsByCategory = async (
+	id,
+	page,
+	limit,
+	search,
+	user_id
+) => {
 	try {
 		const response = await axios.get(
-			`${API_URL}/products/getAllProductsByCategory?category_id=${id}&page=${page}&limit=${limit}&search=${search}`
+			`${API_URL}/products/getAllProductsByCategory?category_id=${id}&page=${page}&limit=${limit}&search=${search}&user_id=${user_id}`
 		);
 		return response.data;
 	} catch (error) {
