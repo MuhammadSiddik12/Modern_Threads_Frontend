@@ -18,7 +18,11 @@ const Profile = () => {
 			try {
 				const user = await getUserDetails(); // Fetch user details from API
 				setUserInfo(user.data); // Set user details in state
-				setProfilePic(user.data.profile_pic || userDefault); // Set profile picture or default image
+				setProfilePic(
+					user?.data.profile_pic
+						? `${IMAGE_URL}${user?.data.profile_pic}`
+						: userDefault
+				); // Set profile picture or default image
 				setLoading(false); // Hide loading indicator
 			} catch (error) {
 				navigate("/login"); // Redirect to login page if there's an error
@@ -53,7 +57,7 @@ const Profile = () => {
 		<div className="profile-container">
 			<div className="profile-header">
 				<img
-					src={`${IMAGE_URL}${profilePic}`}
+					src={profilePic}
 					alt="User Avatar"
 					className="profile-avatar" // Profile picture styling
 				/>
