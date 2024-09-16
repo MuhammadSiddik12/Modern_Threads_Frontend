@@ -12,7 +12,9 @@ import { toast } from "react-toastify";
 const Header = () => {
 	const { isAuthenticated } = useContext(AuthContext); // Get authentication status from context
 	const user = AuthService.getUser(); // Retrieve user details from AuthService
-	const profilePic = user?.profile_pic || userDefaultIcon; // Use user profile picture or default icon
+	const profilePic = user?.profile_pic
+		? `${IMAGE_URL}${user?.profile_pic}`
+		: userDefaultIcon; // Use user profile picture or default icon
 
 	// State to manage search button text and disabled status
 	const [buttonText, setButtonText] = useState("Search");
@@ -85,7 +87,7 @@ const Header = () => {
 					<Link to="/profile">
 						<div className="icon-container">
 							<img
-								src={`${IMAGE_URL}${profilePic}`} // User profile picture
+								src={`${profilePic}`} // User profile picture
 								alt="Profile"
 								className="profile-icon"
 							/>
